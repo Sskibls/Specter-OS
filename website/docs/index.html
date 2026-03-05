@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documentation - SpecterOS</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .docs-container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 40px;
+            padding: 120px 0 60px;
+        }
+        .docs-sidebar {
+            background: var(--color-bg-secondary);
+            padding: 30px;
+            border-radius: var(--border-radius-lg);
+            height: fit-content;
+            position: sticky;
+            top: 100px;
+        }
+        .docs-sidebar h3 {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--color-border);
+        }
+        .docs-nav {
+            list-style: none;
+        }
+        .docs-nav li {
+            margin-bottom: 10px;
+        }
+        .docs-nav a {
+            color: var(--color-text-muted);
+            display: block;
+            padding: 8px 12px;
+            border-radius: var(--border-radius);
+        }
+        .docs-nav a:hover, .docs-nav a.active {
+            color: var(--color-text-primary);
+            background: var(--color-bg-tertiary);
+        }
+        .docs-content {
+            max-width: 900px;
+        }
+        .docs-content h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+        .docs-content h2 {
+            font-size: 1.8rem;
+            margin: 40px 0 20px;
+        }
+        .docs-content h3 {
+            font-size: 1.4rem;
+            margin: 30px 0 15px;
+        }
+        .docs-content p {
+            margin-bottom: 15px;
+            line-height: 1.8;
+        }
+        .docs-content ul, .docs-content ol {
+            margin: 15px 0 15px 30px;
+        }
+        .docs-content li {
+            margin-bottom: 10px;
+        }
+        .docs-content code {
+            background: var(--color-bg-primary);
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-family: var(--font-mono);
+            font-size: 0.9em;
+        }
+        .docs-content pre {
+            background: var(--color-bg-primary);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        .docs-content pre code {
+            padding: 0;
+            background: none;
+        }
+        .docs-content .note {
+            background: rgba(20, 184, 166, 0.1);
+            border-left: 4px solid var(--color-accent);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        .docs-content .warning {
+            background: rgba(245, 158, 11, 0.1);
+            border-left: 4px solid var(--color-warning);
+            padding: 20px;
+            border-radius: var(--border-radius);
+            margin: 20px 0;
+        }
+        @media (max-width: 968px) {
+            .docs-container {
+                grid-template-columns: 1fr;
+            }
+            .docs-sidebar {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="../index.html" class="logo">
+                <span class="logo-icon">👻</span>
+                <span class="logo-text">SpecterOS</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="../index.html#features">Features</a></li>
+                <li><a href="../index.html#download">Download</a></li>
+                <li><a href="index.html" class="active">Docs</a></li>
+                <li><a href="../index.html#community">Community</a></li>
+                <li><a href="https://github.com/Sskibls/Specteros-OS" target="_blank" class="btn-github">GitHub</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container docs-container">
+        <aside class="docs-sidebar">
+            <h3>📚 Documentation</h3>
+            <ul class="docs-nav">
+                <li><a href="index.html" class="active">Getting Started</a></li>
+                <li><a href="installation.html">Installation</a></li>
+                <li><a href="desktop.html">Desktop Overview</a></li>
+                <li><a href="shards.html">Persona Shards</a></li>
+                <li><a href="network.html">Network Security</a></li>
+                <li><a href="encryption.html">Encryption</a></li>
+                <li><a href="security.html">Security Features</a></li>
+                <li><a href="faq.html">FAQ</a></li>
+            </ul>
+        </aside>
+
+        <main class="docs-content">
+            <h1>Getting Started with SpecterOS</h1>
+            
+            <p>Welcome to SpecterOS documentation! This guide will help you get started with your privacy-first Linux distribution.</p>
+            
+            <div class="note">
+                <strong>Note:</strong> SpecterOS is currently in beta (v0.1.0). While it's fully functional, we recommend testing in a virtual machine before installing on bare metal.
+            </div>
+
+            <h2>What is SpecterOS?</h2>
+            <p>SpecterOS is a privacy-first, Debian 12-based Linux distribution designed for security researchers, privacy advocates, and anyone who values their digital freedom.</p>
+            
+            <h3>Key Features</h3>
+            <ul>
+                <li><strong>Persona Shards:</strong> Isolated environments for different identities (Work, Anon, Burner, Lab)</li>
+                <li><strong>Network Kill Switch:</strong> Instant network disconnect for emergencies</li>
+                <li><strong>Full Disk Encryption:</strong> LUKS2 encryption by default</li>
+                <li><strong>Audit Logging:</strong> Tamper-evident security event logging</li>
+                <li><strong>Tor Integration:</strong> Built-in Tor support for anonymous browsing</li>
+                <li><strong>DNS over HTTPS:</strong> Encrypted DNS queries by default</li>
+            </ul>
+
+            <h2>System Requirements</h2>
+            
+            <h3>Minimum Requirements</h3>
+            <ul>
+                <li><strong>CPU:</strong> 2 cores (x86_64)</li>
+                <li><strong>RAM:</strong> 2 GB</li>
+                <li><strong>Storage:</strong> 20 GB</li>
+                <li><strong>Boot:</strong> USB or DVD</li>
+            </ul>
+
+            <h3>Recommended Requirements</h3>
+            <ul>
+                <li><strong>CPU:</strong> 4 cores</li>
+                <li><strong>RAM:</strong> 4 GB</li>
+                <li><strong>Storage:</strong> 64 GB SSD</li>
+                <li><strong>Network:</strong> Ethernet or Wi-Fi</li>
+            </ul>
+
+            <h2>Quick Start Guide</h2>
+            
+            <ol>
+                <li><a href="installation.html#download">Download</a> the latest SpecterOS ISO</li>
+                <li>Create a bootable USB drive using <code>dd</code> or Etcher</li>
+                <li>Boot from the USB drive</li>
+                <li>Try SpecterOS in Live mode or install to disk</li>
+                <li>Set up your Persona Shards and configure privacy settings</li>
+            </ol>
+
+            <div class="warning">
+                <strong>Warning:</strong> Full disk encryption will erase all data on the target disk. Make sure to back up important files before installing.
+            </div>
+
+            <h2>Next Steps</h2>
+            <ul>
+                <li><a href="installation.html">Installation Guide</a> - Detailed installation instructions</li>
+                <li><a href="desktop.html">Desktop Overview</a> - Learn about the XFCE desktop environment</li>
+                <li><a href="shards.html">Persona Shards</a> - Understand shard isolation</li>
+                <li><a href="security.html">Security Features</a> - Deep dive into security</li>
+            </ul>
+
+            <h2>Getting Help</h2>
+            <p>If you need help with SpecterOS:</p>
+            <ul>
+                <li>Check the <a href="faq.html">FAQ</a> for common questions</li>
+                <li>Join our <a href="../index.html#community">Community</a> channels</li>
+                <li>Report issues on <a href="https://github.com/Sskibls/Specteros-OS/issues" target="_blank">GitHub</a></li>
+            </ul>
+        </main>
+    </div>
+
+    <footer class="footer" style="margin-top: 60px;">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 SpecterOS Project. Licensed under Apache 2.0.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/main.js"></script>
+</body>
+</html>

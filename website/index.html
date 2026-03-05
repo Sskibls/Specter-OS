@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SpecterOS - Privacy-First Debian-based Linux Distribution. Your Privacy. Our Mission.">
+    <meta name="keywords" content="linux, privacy, security, debian, operating system, encryption, anonymity">
+    <meta name="author" content="SpecterOS Project">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="SpecterOS - Privacy-First Linux Distribution">
+    <meta property="og:description" content="Your Privacy. Our Mission. A secure, privacy-focused Debian-based Linux distribution.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://sskibls.github.io/Specteros-OS">
+    
+    <title>SpecterOS - Privacy-First Linux Distribution</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">👻</span>
+                <span class="logo-text">SpecterOS</span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#download">Download</a></li>
+                <li><a href="docs/index.html">Docs</a></li>
+                <li><a href="#community">Community</a></li>
+                <li><a href="https://github.com/Sskibls/Specteros-OS" target="_blank" class="btn-github">GitHub</a></li>
+            </ul>
+            <button class="nav-toggle" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container hero-container">
+            <div class="hero-content">
+                <h1 class="hero-title">
+                    <span class="gradient-text">Your Privacy.</span><br>
+                    <span class="gradient-text">Our Mission.</span>
+                </h1>
+                <p class="hero-subtitle">
+                    SpecterOS is a privacy-first, Debian-based Linux distribution designed for 
+                    security researchers, privacy advocates, and anyone who values their digital freedom.
+                </p>
+                <div class="hero-cta">
+                    <a href="#download" class="btn btn-primary btn-lg">
+                        <span class="btn-icon">⬇</span>
+                        Download v0.1.0
+                    </a>
+                    <a href="https://github.com/Sskibls/Specteros-OS" target="_blank" class="btn btn-secondary btn-lg">
+                        <span class="btn-icon">📦</span>
+                        View on GitHub
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat">
+                        <span class="stat-number">205+</span>
+                        <span class="stat-label">Files</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">28K+</span>
+                        <span class="stat-label">Lines of Code</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">8</span>
+                        <span class="stat-label">Security Daemons</span>
+                    </div>
+                </div>
+            </div>
+            <div class="hero-image">
+                <div class="screenshot-mockup">
+                    <div class="mockup-header">
+                        <div class="mockup-buttons">
+                            <span class="btn-red"></span>
+                            <span class="btn-yellow"></span>
+                            <span class="btn-green"></span>
+                        </div>
+                    </div>
+                    <div class="mockup-content">
+                        <pre class="terminal-text">
+<span class="text-green">╔═══════════════════════════════════════════════════════════╗</span>
+<span class="text-green">║</span>         SpecterOS v0.1.0 - Privacy First              <span class="text-green">║</span>
+<span class="text-green">╚═══════════════════════════════════════════════════════════╝</span>
+
+<span class="text-cyan">[✓]</span> Persona Shards: <span class="text-white">work / anon / burner / lab</span>
+<span class="text-cyan">[✓]</span> Network Kill Switch: <span class="text-white">Active</span>
+<span class="text-cyan">[✓]</span> DNS over HTTPS: <span class="text-white">Enabled</span>
+<span class="text-cyan">[✓]</span> Full Disk Encryption: <span class="text-white">LUKS2</span>
+<span class="text-cyan">[✓]</span> Audit Logging: <span class="text-white">Tamper-evident</span>
+
+<span class="text-yellow">Welcome to SpecterOS. Your privacy is protected.</span>
+                        </pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg-effect"></div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Privacy Features</h2>
+                <p class="section-subtitle">Built from the ground up for maximum privacy and security</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🎭</div>
+                    <h3>Persona Shards</h3>
+                    <p>Isolated environments for different identities - Work, Anon, Burner, and Lab. Each shard has independent storage, network routes, and policies.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔌</div>
+                    <h3>Network Kill Switch</h3>
+                    <p>Instant network disconnect for emergencies. One keystroke blocks all network traffic to protect your identity.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔐</div>
+                    <h3>Full Disk Encryption</h3>
+                    <p>LUKS2 encryption by default. Your data stays protected even if your device is compromised.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">📋</div>
+                    <h3>Audit Logging</h3>
+                    <p>Tamper-evident security event logging. Know exactly what happened and when.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🧅</div>
+                    <h3>Tor Integration</h3>
+                    <p>Built-in Tor support for anonymous browsing. Route any application through Tor with one click.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>Secure Boot</h3>
+                    <p>UEFI Secure Boot support with custom key enrollment. Protect your boot chain from tampering.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔄</div>
+                    <h3>A/B Updates</h3>
+                    <p>Seamless system updates with rollback support. Never brick your system again.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🔒</div>
+                    <h3>DNS over HTTPS</h3>
+                    <p>Encrypted DNS queries by default. Prevent DNS snooping and manipulation.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Download Section -->
+    <section id="download" class="download">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Download SpecterOS</h2>
+                <p class="section-subtitle">Get started with SpecterOS today</p>
+            </div>
+            <div class="download-container">
+                <div class="download-card">
+                    <div class="version-badge">Latest Release</div>
+                    <h3>SpecterOS v0.1.0</h3>
+                    <p class="version-info">Based on Debian 12 (Bookworm) with XFCE Desktop</p>
+                    <div class="download-options">
+                        <a href="#" class="btn btn-primary btn-block">
+                            <span class="btn-icon">⬇</span>
+                            Direct Download (3.2 GB)
+                        </a>
+                        <a href="#" class="btn btn-secondary btn-block">
+                            <span class="btn-icon">🧲</span>
+                            Torrent Download
+                        </a>
+                    </div>
+                    <div class="checksum-info">
+                        <p><strong>SHA256:</strong></p>
+                        <code>abc123def456789... (verify after download)</code>
+                    </div>
+                    <div class="system-requirements">
+                        <h4>System Requirements</h4>
+                        <ul>
+                            <li><strong>CPU:</strong> 2 cores (x86_64)</li>
+                            <li><strong>RAM:</strong> 2 GB minimum, 4 GB recommended</li>
+                            <li><strong>Storage:</strong> 20 GB minimum, 64 GB recommended</li>
+                            <li><strong>Boot:</strong> USB or DVD</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="download-links">
+                    <h3>Additional Resources</h3>
+                    <ul class="link-list">
+                        <li>
+                            <a href="docs/installation.html">
+                                <span class="link-icon">📖</span>
+                                <div>
+                                    <span class="link-title">Installation Guide</span>
+                                    <span class="link-desc">Step-by-step installation instructions</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/Sskibls/Specteros-OS" target="_blank">
+                                <span class="link-icon">📦</span>
+                                <div>
+                                    <span class="link-title">Source Code</span>
+                                    <span class="link-desc">Build from source on GitHub</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="docs/verification.html">
+                                <span class="link-icon">✓</span>
+                                <div>
+                                    <span class="link-title">Verify Download</span>
+                                    <span class="link-desc">Check SHA256 and GPG signatures</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="docs/changelog.html">
+                                <span class="link-icon">📝</span>
+                                <div>
+                                    <span class="link-title">Changelog</span>
+                                    <span class="link-desc">What's new in v0.1.0</span>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Community Section -->
+    <section id="community" class="community">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Join the Community</h2>
+                <p class="section-subtitle">Connect with other SpecterOS users and contributors</p>
+            </div>
+            <div class="community-grid">
+                <a href="https://github.com/Sskibls/Specteros-OS" target="_blank" class="community-card">
+                    <div class="community-icon">📦</div>
+                    <h3>GitHub</h3>
+                    <p>View source code, report issues, and contribute</p>
+                </a>
+                <a href="#" class="community-card">
+                    <div class="community-icon">💬</div>
+                    <h3>Discord</h3>
+                    <p>Chat with the community and get help</p>
+                </a>
+                <a href="#" class="community-card">
+                    <div class="community-icon">📧</div>
+                    <h3>Mailing List</h3>
+                    <p>Stay updated with announcements and security advisories</p>
+                </a>
+                <a href="#" class="community-card">
+                    <div class="community-icon">🐛</div>
+                    <h3>Bug Tracker</h3>
+                    <p>Report bugs and request features</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <span class="logo-icon">👻</span>
+                        <span class="logo-text">SpecterOS</span>
+                    </a>
+                    <p>Privacy-First Linux Distribution</p>
+                    <div class="social-links">
+                        <a href="https://github.com/Sskibls/Specteros-OS" target="_blank" aria-label="GitHub">GitHub</a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#download">Download</a></li>
+                        <li><a href="docs/index.html">Documentation</a></li>
+                        <li><a href="#features">Features</a></li>
+                        <li><a href="blog/index.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="docs/installation.html">Installation Guide</a></li>
+                        <li><a href="docs/security.html">Security Features</a></li>
+                        <li><a href="docs/faq.html">FAQ</a></li>
+                        <li><a href="https://github.com/Sskibls/Specteros-OS" target="_blank">Source Code</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="privacy.html">Privacy Policy</a></li>
+                        <li><a href="terms.html">Terms of Use</a></li>
+                        <li><a href="security.html">Security Policy</a></li>
+                        <li><a href="license.html">License (Apache 2.0)</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 SpecterOS Project. Licensed under Apache 2.0.</p>
+                <p>Built with ❤️ for privacy and security.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/main.js"></script>
+</body>
+</html>
