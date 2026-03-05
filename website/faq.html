@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ - SpecterOS</title>
+    <meta name="description" content="Frequently asked questions about SpecterOS - privacy-focused Linux distribution">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .faq-header { padding: 160px 0 60px; background: var(--bg-secondary); text-align: center; }
+        .faq-content { max-width: 900px; margin: 0 auto; padding: var(--section-padding) 16px; }
+        .faq-category { margin-bottom: 48px; }
+        .faq-category h2 { font-size: 1.75rem; margin-bottom: 24px; color: var(--accent-primary); display: flex; align-items: center; gap: 12px; }
+        .faq-item { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); margin-bottom: 16px; overflow: hidden; transition: var(--transition-base); }
+        .faq-item:hover { border-color: var(--border-light); }
+        .faq-question { padding: 20px 24px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 16px; }
+        .faq-question h3 { font-size: 1.05rem; color: var(--text-primary); margin: 0; }
+        .faq-icon { font-size: 1.5rem; color: var(--accent-primary); transition: var(--transition-base); }
+        .faq-item.active .faq-icon { transform: rotate(45deg); }
+        .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease; }
+        .faq-item.active .faq-answer { max-height: 1000px; }
+        .faq-answer-content { padding: 0 24px 20px; color: var(--text-muted); line-height: 1.8; }
+        .faq-answer-content p { margin-bottom: 12px; }
+        .faq-answer-content ul { margin-left: 20px; margin-bottom: 12px; }
+        .faq-answer-content li { margin-bottom: 6px; }
+        .faq-answer-content a { color: var(--accent-primary); }
+        .faq-search { margin-bottom: 40px; }
+        .faq-search input { width: 100%; padding: 16px 20px; background: var(--bg-card); border: 1px solid var(--border-color); border-radius: var(--radius-lg); color: var(--text-primary); font-size: 1rem; font-family: var(--font-body); }
+        .faq-search input:focus { outline: none; border-color: var(--accent-primary); }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container nav-container">
+            <a href="index.html" class="logo">
+                <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+                    <circle cx="20" cy="20" r="18" stroke="url(#logo-gradient)" stroke-width="2"/>
+                    <path d="M20 8C15 8 12 12 12 18C12 24 15 28 20 28C25 28 28 24 28 18C28 12 25 8 20 8Z" fill="url(#logo-gradient)"/>
+                    <circle cx="20" cy="16" r="3" fill="#0F0F0F"/>
+                    <defs><linearGradient id="logo-gradient" x1="2" y1="2" x2="38" y2="38"><stop stop-color="#00D4AA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+                </svg>
+                <span class="logo-text">SPECTER<span class="logo-accent">OS</span></span>
+            </a>
+            <ul class="nav-menu">
+                <li><a href="index.html#features">Features</a></li>
+                <li><a href="index.html#download">Download</a></li>
+                <li><a href="docs/index.html">Docs</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="gallery.html">Gallery</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="faq-header">
+        <div class="container">
+            <span class="section-tag">HELP CENTER</span>
+            <h1>Frequently Asked <span class="text-gradient">Questions</span></h1>
+            <p class="section-subtitle">Find answers to common questions about SpecterOS</p>
+        </div>
+    </header>
+
+    <main class="faq-content">
+        <div class="faq-search">
+            <input type="text" id="faqSearch" placeholder="Search questions..." onkeyup="filterFAQ()">
+        </div>
+
+        <div class="faq-category">
+            <h2>🚀 Getting Started</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What is SpecterOS?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>SpecterOS is a privacy-first, Debian-based Linux distribution designed for security researchers, privacy advocates, journalists, activists, and anyone who values their digital freedom.</p>
+                        <p>It features Persona Shards (isolated environments), Network Kill Switch, full disk encryption, audit logging, and Tor integration - all designed to protect your privacy and security.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Is SpecterOS free?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! SpecterOS is completely free and open source software licensed under Apache 2.0.</p>
+                        <p>You can download, use, modify, and distribute it without any cost. We accept donations to support ongoing development.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What are the system requirements?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p><strong>Minimum:</strong></p>
+                        <ul>
+                            <li>2 core processor (x86_64)</li>
+                            <li>2 GB RAM</li>
+                            <li>20 GB storage</li>
+                            <li>USB drive or DVD for installation</li>
+                        </ul>
+                        <p><strong>Recommended:</strong></p>
+                        <ul>
+                            <li>4 core processor</li>
+                            <li>4 GB RAM</li>
+                            <li>64 GB SSD</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I try SpecterOS without installing?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! SpecterOS includes a Live mode that lets you boot from USB and try the system without installing anything to your hard drive.</p>
+                        <p>Select "SpecterOS (Live)" from the boot menu to use Live mode. Any changes you make will be lost when you reboot.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>🔐 Security & Privacy</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What are Persona Shards?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Persona Shards are isolated environments that keep your different digital identities completely separate. Each shard has its own:</p>
+                        <ul>
+                            <li>Encrypted storage</li>
+                            <li>Network configuration</li>
+                            <li>Application sessions</li>
+                            <li>Security policies</li>
+                        </ul>
+                        <p>Default shards include: Work, Anon, Burner, and Lab.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How does the Network Kill Switch work?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>The Network Kill Switch instantly blocks all network traffic at the system level. When activated:</p>
+                        <ul>
+                            <li>All network interfaces are disabled</li>
+                            <li>Wi-Fi and Bluetooth are turned off</li>
+                            <li>All active connections are terminated</li>
+                            <li>Network daemons are stopped</li>
+                        </ul>
+                        <p>This is useful in emergency situations where you need to immediately disconnect from all networks.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Is my data encrypted?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! SpecterOS uses LUKS2 full disk encryption by default. All your data is encrypted at rest using industry-standard encryption.</p>
+                        <p>Additionally, each Persona Shard can have its own encryption key for extra isolation.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Does SpecterOS include Tor?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! SpecterOS has built-in Tor integration. You can route any application through Tor with transparent proxying.</p>
+                        <p>The Network settings include easy Tor configuration for anonymous browsing and communication.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>💿 Installation</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I install SpecterOS?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>See our complete <a href="installation.html">Installation Guide</a> for step-by-step instructions.</p>
+                        <p>In short: Download ISO → Create bootable USB → Boot from USB → Follow installer wizard.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I dual-boot SpecterOS?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes, but we recommend using a separate physical drive for best security and isolation.</p>
+                        <p>If dual-booting on the same drive, use manual partitioning during installation and be careful not to overwrite your existing OS.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Does SpecterOS work on Mac?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>SpecterOS works on Intel-based Macs, but not on Apple Silicon (M1/M2) yet. We're working on ARM support for future releases.</p>
+                        <p>For Intel Macs, you may need to disable Secure Boot and use rEFInd bootloader for best results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>What if installation fails?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Common solutions:</p>
+                        <ul>
+                            <li>Verify ISO checksum matches</li>
+                            <li>Recreate bootable USB</li>
+                            <li>Disable Secure Boot in BIOS</li>
+                            <li>Try "nomodeset" boot parameter</li>
+                            <li>Check hardware compatibility</li>
+                        </ul>
+                        <p>See our <a href="installation.html#troubleshooting">Troubleshooting section</a> for more help.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="faq-category">
+            <h2>🔧 Usage & Support</h2>
+            
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I update SpecterOS?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>SpecterOS uses A/B updates for safe, rollback-capable updates:</p>
+                        <div class="code-block"><code>sudo specteros-update</code></div>
+                        <p>Or use standard Debian commands:</p>
+                        <div class="code-block"><code>sudo apt update && sudo apt upgrade</code></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>Can I install additional software?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Yes! SpecterOS is based on Debian, so you can install any software from Debian repositories:</p>
+                        <div class="code-block"><code>sudo apt install package-name</code></div>
+                        <p>You can also use Flatpak and AppImage for additional applications.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How do I get help?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>There are several ways to get help:</p>
+                        <ul>
+                            <li><a href="docs/index.html">Documentation</a> - Official guides and tutorials</li>
+                            <li><a href="https://github.com/Sskibls/Specteros-OS/issues">GitHub Issues</a> - Report bugs and request features</li>
+                            <li><a href="#">Discord</a> - Community support chat</li>
+                            <li><a href="#">Mailing List</a> - Security advisories and announcements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <div class="faq-question" onclick="toggleFAQ(this)">
+                    <h3>How can I contribute?</h3>
+                    <span class="faq-icon">+</span>
+                </div>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>We welcome contributions! You can help by:</p>
+                        <ul>
+                            <li>Contributing code on GitHub</li>
+                            <li>Reporting bugs and suggesting features</li>
+                            <li>Improving documentation</li>
+                            <li>Translating to your language</li>
+                            <li>Helping others in the community</li>
+                            <li>Donating to support development</li>
+                        </ul>
+                        <p>Visit our <a href="https://github.com/Sskibls/Specteros-OS">GitHub repository</a> to get started.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo">
+                        <svg class="logo-svg" viewBox="0 0 40 40" fill="none">
+                            <circle cx="20" cy="20" r="18" stroke="url(#logo-gradient-footer)" stroke-width="2"/>
+                            <path d="M20 8C15 8 12 12 12 18C12 24 15 28 20 28C25 28 28 24 28 18C28 12 25 8 20 8Z" fill="url(#logo-gradient-footer)"/>
+                            <circle cx="20" cy="16" r="3" fill="#0F0F0F"/>
+                            <defs><linearGradient id="logo-gradient-footer" x1="2" y1="2" x2="38" y2="38"><stop stop-color="#00D4AA"/><stop offset="1" stop-color="#7C3AED"/></linearGradient></defs>
+                        </svg>
+                        <span class="logo-text">SPECTER<span class="logo-accent">OS</span></span>
+                    </a>
+                    <p>Privacy-first Linux distribution for the modern age.</p>
+                </div>
+                <div class="footer-column"><h4>Product</h4><ul><li><a href="index.html#features">Features</a></li><li><a href="index.html#download">Download</a></li><li><a href="gallery.html">Gallery</a></li></ul></div>
+                <div class="footer-column"><h4>Resources</h4><ul><li><a href="docs/index.html">Documentation</a></li><li><a href="installation.html">Installation</a></li><li><a href="faq.html">FAQ</a></li></ul></div>
+                <div class="footer-column"><h4>Community</h4><ul><li><a href="https://github.com/Sskibls/Specteros-OS">GitHub</a></li><li><a href="#">Discord</a></li><li><a href="#">Mailing List</a></li></ul></div>
+            </div>
+            <div class="footer-bottom"><p>&copy; 2024 SpecterOS Project. Licensed under Apache 2.0.</p></div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleFAQ(element) {
+            const item = element.parentElement;
+            const wasActive = item.classList.contains('active');
+            
+            // Close all FAQ items
+            document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+            
+            // Open clicked item if it wasn't active
+            if (!wasActive) {
+                item.classList.add('active');
+            }
+        }
+
+        function filterFAQ() {
+            const search = document.getElementById('faqSearch').value.toLowerCase();
+            document.querySelectorAll('.faq-item').forEach(item => {
+                const text = item.textContent.toLowerCase();
+                item.style.display = text.includes(search) ? 'block' : 'none';
+            });
+        }
+    </script>
+    <script src="js/main.js"></script>
+</body>
+</html>
