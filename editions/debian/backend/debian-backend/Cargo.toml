@@ -1,0 +1,9 @@
+[package]
+name = "ghostkernel-debian-backend"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+gk-platform-api = { path = "../../../../core/libs/gk-platform-api" }
+

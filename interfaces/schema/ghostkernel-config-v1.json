@@ -1,0 +1,51 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://phantomkernel.dev/schema/phantomkernel-config-v1.json",
+  "title": "PhantomKernelConfigV1",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "core",
+    "security",
+    "edition"
+  ],
+  "properties": {
+    "schema_version": {
+      "type": "integer",
+      "const": 1
+    },
+    "core": {
+      "type": "object",
+      "properties": {
+        "data_dir": {
+          "type": "string"
+        }
+      },
+      "required": ["data_dir"],
+      "additionalProperties": true
+    },
+    "security": {
+      "type": "object",
+      "properties": {
+        "deny_by_default": {
+          "type": "boolean"
+        }
+      },
+      "required": ["deny_by_default"],
+      "additionalProperties": true
+    },
+    "edition": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": ["shared", "debian", "fedora"]
+        }
+      },
+      "required": ["name"],
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true
+}
+

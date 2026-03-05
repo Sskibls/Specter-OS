@@ -1,0 +1,15 @@
+[Unit]
+Description=PhantomKernel Policy Service
+After=phantomkernel-auditd.service
+Requires=phantomkernel-auditd.service
+Before=phantomkernel-shardd.service phantomkernel-netd.service
+
+[Service]
+Type=simple
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-policyd
+Restart=on-failure
+
+[Install]
+WantedBy=phantomkernel.target
+

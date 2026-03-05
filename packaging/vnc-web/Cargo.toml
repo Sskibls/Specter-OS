@@ -1,0 +1,11 @@
+[package]
+name = "ghostkernel-vnc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+axum = { version = "0.7", features = ["ws"] }
+tokio = { version = "1.0", features = ["full"] }
+futures-util = "0.3"
+tower-http = { version = "0.5", features = ["fs"] }
+serde_json = "1.0"

@@ -1,0 +1,27 @@
+[package]
+name = "ghostkernel-desktop"
+version = "0.1.0"
+edition = "2021"
+license = "Apache-2.0"
+
+[dependencies]
+# GUI Framework - GTK4 for modern, secure widgets
+gtk = { version = "0.8", package = "gtk4", features = ["v4_8"] }
+gdk4 = "0.8"
+gio = "0.19"
+
+# Wayland integration
+wayland-client = "0.31"
+wayland-protocols = { version = "0.31", features = ["client"] }
+
+# GhostKernel integration
+gk-ipc = { path = "../../core/libs/gk-ipc" }
+gk-policy = { path = "../../core/libs/gk-policy" }
+
+# Async runtime
+tokio = { version = "1.0", features = ["full"] }
+
+# Utilities
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+anyhow = "1.0"

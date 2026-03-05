@@ -1,0 +1,26 @@
+schema_version = 1
+
+[core]
+data_dir = "/var/lib/phantomkernel"
+
+[security]
+deny_by_default = true
+
+[policy]
+token_ttl_seconds = 900
+
+[network]
+kill_switch_default = true
+
+[airlock]
+require_scan = true
+
+[audit]
+enabled = true
+
+[update]
+channel = "stable"
+
+[edition]
+name = "shared"
+

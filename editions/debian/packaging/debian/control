@@ -1,0 +1,61 @@
+Source: ghostkernel
+Section: utils
+Priority: optional
+Maintainer: GhostKernel OS Team <dev@ghostkernel.org>
+Build-Depends: debhelper (>= 11), cargo, rustc, libssl-dev, pkg-config
+Standards-Version: 4.1.4
+Homepage: https://ghostkernel.org
+
+Package: ghostkernel-init
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Boot Orchestrator
+ Handles boot orchestration and immutable root checks for GhostKernel OS.
+
+Package: ghostkernel-policyd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Policy Engine
+ Capability broker and permission policy engine for GhostKernel OS.
+
+Package: ghostkernel-shardd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Shard Manager
+ Handles persona shard lifecycle and context isolation.
+
+Package: ghostkernel-netd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd, iptables, nftables
+Description: GhostKernel OS Network Daemon
+ Shard-aware network policy and route manager.
+
+Package: ghostkernel-airlockd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Airlock Service
+ Controlled inter-shard transfer pipeline with metadata sanitization.
+
+Package: ghostkernel-auditd
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Audit Service
+ Tamper-evident audit log service for security events.
+
+Package: ghostkernel-guardian
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS OPSEC Advisor
+ Local security advisor and risk alert system.
+
+Package: ghostkernel-updated
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}, systemd
+Description: GhostKernel OS Update Daemon
+ Signed and reproducible updates with rollback support.
+
+Package: gkctl
+Architecture: any
+Depends: ${shlibs:Depends}, ${misc:Depends}
+Description: GhostKernel OS Control Utility
+ Command-line interface for managing GhostKernel OS services and shards.

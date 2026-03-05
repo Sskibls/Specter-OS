@@ -1,0 +1,14 @@
+[Unit]
+Description=PhantomKernel Network Policy Service
+After=phantomkernel-policyd.service network-online.target
+Requires=phantomkernel-policyd.service
+
+[Service]
+Type=simple
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-netd
+Restart=on-failure
+
+[Install]
+WantedBy=phantomkernel.target
+

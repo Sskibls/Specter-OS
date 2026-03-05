@@ -1,0 +1,34 @@
+  1. Hardware Compatibility Research
+  I researched laptops with physical kill switches, TPM 2.0,
+  and Linux support. The report at docs/HARDWARE_MATRIX.md
+  categorizes models into Certified (e.g., Purism Librem 14,
+  Framework), Supported (e.g., System76 Pangolin), and
+  Compatible (e.g., ThinkPad T14).
+
+
+  2. Debian Packaging
+  I created the Debian packaging definitions in
+  editions/debian/packaging/debian/.
+   - debian/control: Defines binary packages for all 8
+     daemons (init, policyd, shardd, netd, airlockd, auditd,
+     guardian, updated) and the gkctl CLI.
+   - debian/rules: A build script that uses cargo build
+     --release and installs binaries into their respective
+     package paths.
+   - postinst / postrm: Scripts for each daemon to handle
+     systemd service enablement, starting, and cleanup.
+
+
+  3. SBOM (Software Bill of Materials)
+  I generated a complete SBOM at packaging/sbom/sbom.json by
+  processing cargo metadata. It includes:
+   - A flat list of all Rust dependencies with versions and
+     licenses.
+   - Supply chain verification metadata (checksum algorithm
+     and signing policy).
+   - A structure for tracking known CVEs.
+   - Metadata identifying the generator and timestamp.
+
+
+  All deliverables align with the security requirements in
+  PHANTOMKERNEL_OS_BIBLE.md.

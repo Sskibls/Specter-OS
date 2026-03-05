@@ -1,0 +1,342 @@
+/* PhantomKernel Desktop Environment Stylesheet
+ * Secure, privacy-focused desktop theme
+ */
+
+/* ===== Base Styles ===== */
+window {
+    background-color: #1a1a2e;
+    color: #eaeaea;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    font-size: 14px;
+}
+
+/* ===== Top Panel ===== */
+.top-panel {
+    background-color: rgba(15, 52, 96, 0.95);
+    padding: 8px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.top-panel .shard-indicator {
+    font-weight: bold;
+    color: #00adb5;
+    padding: 4px 12px;
+    background: rgba(0, 173, 181, 0.1);
+    border-radius: 4px;
+}
+
+.top-panel .network-status {
+    color: #00ff88;
+    padding: 4px 8px;
+}
+
+.top-panel .privacy-status {
+    color: #00ff88;
+}
+
+.top-panel .panic-button {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 4px;
+    border: 2px solid #ff4444;
+}
+
+.top-panel .panic-button:hover {
+    background-color: #ff4444;
+}
+
+.top-panel .panic-button:active {
+    background-color: #cc0000;
+}
+
+/* ===== Desktop Shell ===== */
+.workspace {
+    background-color: #1a1a2e;
+}
+
+.workspace.shard-work {
+    background-color: #1a1a2e;
+}
+
+.workspace.shard-anon {
+    background-color: #0d1b2a;
+}
+
+.workspace.shard-burner {
+    background-color: #1b0d0d;
+}
+
+.workspace.shard-lab {
+    background-color: #0d1b1b;
+}
+
+/* ===== File Manager ===== */
+.file-manager {
+    background-color: #16213e;
+    border-radius: 8px;
+    margin: 8px;
+}
+
+.file-manager .path-bar {
+    background-color: rgba(0, 0, 0, 0.3);
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: 'JetBrains Mono', monospace;
+}
+
+.file-manager .file-list {
+    background-color: transparent;
+}
+
+.file-manager .file-list row {
+    padding: 8px;
+    border-radius: 4px;
+    margin: 2px 8px;
+}
+
+.file-manager .file-list row:hover {
+    background-color: rgba(0, 173, 181, 0.2);
+}
+
+.file-manager .file-list row:selected {
+    background-color: rgba(0, 173, 181, 0.4);
+}
+
+/* ===== Network Monitor ===== */
+.network-monitor {
+    background-color: #16213e;
+    border-radius: 8px;
+    border: 1px solid rgba(0, 173, 181, 0.3);
+}
+
+.network-monitor .status-label {
+    font-size: 16px;
+    font-weight: bold;
+    padding: 8px;
+}
+
+.network-monitor .status-label.secure {
+    color: #00ff88;
+}
+
+.network-monitor .status-label.tor {
+    color: #ff9f43;
+}
+
+.network-monitor .status-label.danger {
+    color: #ff6b6b;
+}
+
+.network-monitor .status-label.warning {
+    color: #ffd93d;
+}
+
+.network-monitor .kill-switch-btn {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-weight: bold;
+}
+
+.network-monitor .kill-switch-btn.active {
+    background-color: #00ff88;
+    color: #000;
+}
+
+/* ===== Shard Manager ===== */
+.shard-manager .header {
+    font-size: 20px;
+    font-weight: bold;
+    color: #00adb5;
+}
+
+.shard-card {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.shard-card:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-color: rgba(0, 173, 181, 0.5);
+}
+
+.shard-card .shard-title {
+    font-size: 16px;
+    font-weight: bold;
+    color: #eaeaea;
+}
+
+.shard-card .shard-status {
+    font-size: 12px;
+    color: #888;
+}
+
+.shard-card .start-btn {
+    background-color: #00adb5;
+    color: #fff;
+}
+
+.shard-card .stop-btn {
+    background-color: #ff6b6b;
+    color: #fff;
+}
+
+/* ===== Settings ===== */
+.privacy-settings .section-header {
+    font-size: 16px;
+    font-weight: bold;
+    color: #00adb5;
+    margin-top: 16px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.privacy-settings .settings-group {
+    background-color: rgba(255, 255, 255, 0.03);
+    border-radius: 8px;
+    padding: 8px;
+}
+
+.privacy-settings .subtitle {
+    font-size: 12px;
+    color: #888;
+}
+
+/* ===== Emergency Controls ===== */
+.emergency-controls {
+    background-color: rgba(255, 107, 107, 0.1);
+    border: 2px solid #ff6b6b;
+    border-radius: 8px;
+    padding: 16px;
+}
+
+.emergency-controls .emergency-header {
+    font-size: 18px;
+    font-weight: bold;
+    color: #ff6b6b;
+}
+
+.emergency-controls .panic-button {
+    background-color: #ff6b6b;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    padding: 12px 24px;
+    border-radius: 8px;
+}
+
+.emergency-controls .panic-button:hover {
+    background-color: #ff4444;
+}
+
+.emergency-controls .mask-button {
+    background-color: #ffd93d;
+    color: #000;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+.emergency-controls .travel-button {
+    background-color: #00adb5;
+    color: #fff;
+    font-weight: bold;
+    padding: 10px 20px;
+    border-radius: 8px;
+}
+
+/* ===== Scrollbars ===== */
+scrollbar {
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+scrollbar slider {
+    background-color: rgba(0, 173, 181, 0.5);
+    border-radius: 4px;
+}
+
+scrollbar slider:hover {
+    background-color: rgba(0, 173, 181, 0.8);
+}
+
+/* ===== Buttons ===== */
+button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #eaeaea;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    padding: 6px 12px;
+}
+
+button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+button:active {
+    background-color: rgba(0, 173, 181, 0.5);
+}
+
+button:disabled {
+    opacity: 0.5;
+}
+
+/* ===== Switches ===== */
+switch {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+switch:checked {
+    background-color: #00adb5;
+}
+
+switch slider {
+    background-color: #fff;
+    border-radius: 50%;
+}
+
+/* ===== Progress Bars ===== */
+progressbar {
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+progressbar progress {
+    background-color: #00adb5;
+    border-radius: 4px;
+}
+
+/* ===== Dialogs ===== */
+.dialog {
+    background-color: #16213e;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 8px;
+}
+
+.dialog .title {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+/* ===== Notifications ===== */
+.notification {
+    background-color: rgba(15, 52, 96, 0.95);
+    border-left: 4px solid #00adb5;
+    border-radius: 4px;
+    padding: 12px 16px;
+    margin: 8px;
+}
+
+.notification.warning {
+    border-left-color: #ffd93d;
+}
+
+.notification.error {
+    border-left-color: #ff6b6b;
+}
+
+.notification.success {
+    border-left-color: #00ff88;
+}

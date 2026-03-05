@@ -1,0 +1,23 @@
+[package]
+name = "ghostkernel-test-harness"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+gk-config = { path = "../../core/libs/gk-config" }
+gk-policy = { path = "../../core/libs/gk-policy" }
+gk-audit = { path = "../../core/libs/gk-audit" }
+gk-crypto = { path = "../../core/libs/gk-crypto" }
+gk-persistence = { path = "../../core/libs/gk-persistence" }
+ghostkernel-policyd = { path = "../../core/daemons/ghostkernel-policyd" }
+ghostkernel-shardd = { path = "../../core/daemons/ghostkernel-shardd" }
+ghostkernel-netd = { path = "../../core/daemons/ghostkernel-netd" }
+ghostkernel-airlockd = { path = "../../core/daemons/ghostkernel-airlockd" }
+ghostkernel-auditd = { path = "../../core/daemons/ghostkernel-auditd" }
+ghostkernel-guardian = { path = "../../core/daemons/ghostkernel-guardian" }
+
+[dev-dependencies]
+tempfile = "3"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

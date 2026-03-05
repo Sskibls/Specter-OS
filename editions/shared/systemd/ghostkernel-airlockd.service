@@ -1,0 +1,14 @@
+[Unit]
+Description=PhantomKernel Airlock Transfer Service
+After=phantomkernel-shardd.service phantomkernel-netd.service phantomkernel-policyd.service
+Requires=phantomkernel-shardd.service phantomkernel-netd.service
+
+[Service]
+Type=simple
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-airlockd
+Restart=on-failure
+
+[Install]
+WantedBy=phantomkernel.target
+

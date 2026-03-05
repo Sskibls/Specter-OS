@@ -1,0 +1,181 @@
+/*
+ * PhantomKernel OS - Fsociety Theme
+ * Terminal-centric hacker aesthetic
+ * 
+ * "All your privacy are belong to us"
+ */
+
+:root {
+    --fsociety-bg: #0d0d0d;
+    --fsociety-fg: #00ff00;
+    --fsociety-accent: #ff0000;
+    --fsociety-dim: #006600;
+    --fsociety-bright: #00ff66;
+    --fsociety-error: #ff3333;
+    --fsociety-warning: #ffcc00;
+    --fsociety-info: #00ccff;
+    --font-mono: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
+}
+
+/* Base terminal styling */
+.terminal-fsociety {
+    background-color: var(--fsociety-bg);
+    color: var(--fsociety-fg);
+    font-family: var(--font-mono);
+    font-size: 14px;
+    line-height: 1.4;
+    text-shadow: 0 0 5px rgba(0, 255, 0, 0.3);
+}
+
+/* Prompt styling */
+.terminal-fsociety .prompt {
+    color: var(--fsociety-accent);
+    font-weight: bold;
+}
+
+.terminal-fsociety .prompt-user {
+    color: var(--fsociety-fg);
+    font-weight: bold;
+}
+
+.terminal-fsociety .prompt-path {
+    color: var(--fsociety-info);
+}
+
+/* Output styling */
+.terminal-fsociety .output {
+    color: var(--fsociety-fg);
+}
+
+.terminal-fsociety .output-success {
+    color: var(--fsociety-bright);
+    text-shadow: 0 0 8px rgba(0, 255, 102, 0.5);
+}
+
+.terminal-fsociety .output-error {
+    color: var(--fsociety-error);
+    font-weight: bold;
+    text-shadow: 0 0 8px rgba(255, 51, 51, 0.5);
+}
+
+.terminal-fsociety .output-warning {
+    color: var(--fsociety-warning);
+}
+
+.terminal-fsociety .output-info {
+    color: var(--fsociety-info);
+}
+
+/* Section headers */
+.terminal-fsociety .section-header {
+    color: var(--fsociety-accent);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    border-bottom: 1px solid var(--fsociety-dim);
+    padding-bottom: 4px;
+    margin-top: 16px;
+}
+
+/* ASCII art banner */
+.terminal-fsociety .banner {
+    color: var(--fsociety-fg);
+    font-size: 10px;
+    line-height: 1.1;
+    white-space: pre;
+    text-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+}
+
+/* Status indicators */
+.terminal-fsociety .status-active {
+    color: var(--fsociety-bright);
+}
+
+.terminal-fsociety .status-inactive {
+    color: var(--fsociety-dim);
+}
+
+.terminal-fsociety .status-locked {
+    color: var(--fsociety-accent);
+    animation: blink 1s infinite;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+}
+
+/* Table styling */
+.terminal-fsociety table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.terminal-fsociety th {
+    color: var(--fsociety-accent);
+    text-align: left;
+    padding: 4px 8px;
+    border-bottom: 2px solid var(--fsociety-dim);
+}
+
+.terminal-fsociety td {
+    padding: 4px 8px;
+    border-bottom: 1px solid var(--fsociety-dim);
+}
+
+/* Scrollbar styling */
+.terminal-fsociety ::-webkit-scrollbar {
+    width: 8px;
+}
+
+.terminal-fsociety ::-webkit-scrollbar-track {
+    background: var(--fsociety-bg);
+}
+
+.terminal-fsociety ::-webkit-scrollbar-thumb {
+    background: var(--fsociety-dim);
+    border-radius: 4px;
+}
+
+.terminal-fsociety ::-webkit-scrollbar-thumb:hover {
+    background: var(--fsociety-fg);
+}
+
+/* Selection */
+.terminal-fsociety ::selection {
+    background: var(--fsociety-fg);
+    color: var(--fsociety-bg);
+}
+
+/* Glitch effect for panic mode */
+.terminal-fsociety.panic-mode {
+    animation: glitch 0.2s infinite;
+}
+
+@keyframes glitch {
+    0% { transform: translate(0); }
+    25% { transform: translate(-2px, 2px); }
+    50% { transform: translate(2px, -2px); }
+    75% { transform: translate(-2px, -2px); }
+    100% { transform: translate(0); }
+}
+
+/* CRT scanline effect */
+.terminal-fsociety::before {
+    content: " ";
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(18, 16, 16, 0) 50%,
+        rgba(0, 0, 0, 0.25) 50%
+    );
+    background-size: 100% 4px;
+    z-index: 1000;
+    pointer-events: none;
+    opacity: 0.15;
+}

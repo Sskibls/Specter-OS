@@ -1,0 +1,54 @@
+# Fsociety Theme Configuration
+# PhantomKernel OS - Terminal-centric hacker aesthetic
+
+name: Fsociety
+version: 0.1.0
+author: PhantomKernel OS Team
+description: "Hacker aesthetic theme inspired by terminal culture"
+
+colors:
+  background: "#0d0d0d"
+  foreground: "#00ff00"
+  accent: "#ff0000"
+  dim: "#006600"
+  bright: "#00ff66"
+  error: "#ff3333"
+  warning: "#ffcc00"
+  info: "#00ccff"
+  success: "#00ff66"
+
+font:
+  family: "JetBrains Mono, Fira Code, Courier New, monospace"
+  size: 14
+  line_height: 1.4
+
+effects:
+  text_shadow: true
+  scanlines: true
+  glitch_on_panic: true
+  blink_locked_status: true
+
+prompt:
+  format: "root@fsociety:{shard}$ "
+  user_color: "#00ff00"
+  path_color: "#00ccff"
+  symbol_color: "#ff0000"
+
+banner: |
+   ██████╗ ███████╗████████╗██████╗  ██████╗ 
+  ██╔════╝ ██╔════╝╚══██╔══╝██╔══██╗██╔═══██╗
+  ██║  ███╗█████╗     ██║   ██████╔╝██║   ██║
+  ██║   ██║██╔══╝     ██║   ██╔══██╗██║   ██║
+  ╚██████╔╝███████╗   ██║   ██║  ██║╚██████╔╝
+   ╚═════╝ ╚══════╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ 
+                                            
+  [ CONTROL TERMINAL ]
+
+indicators:
+  active: "●"
+  inactive: "○"
+  locked: "🔒"
+  success: "[+]"
+  error: "[!]"
+  warning: "[!]"
+  info: "[*]"

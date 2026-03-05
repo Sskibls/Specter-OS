@@ -1,0 +1,6 @@
+[edition]
+name = "fedora"
+
+[edition.fedora]
+dnf_channel = "stable"
+

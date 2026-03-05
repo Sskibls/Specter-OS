@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PhantomKernel OS - Remote Terminal</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            background: #0d0d0d;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+            height: 100vh;
+            overflow: hidden;
+        }
+        #header {
+            background: linear-gradient(135deg, #0f3460 0%, #0d0d0d 100%);
+            padding: 12px 20px;
+            border-bottom: 1px solid #00ff00;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        #header h1 {
+            font-size: 18px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        #status {
+            font-size: 12px;
+            padding: 4px 12px;
+            border-radius: 4px;
+            background: rgba(0, 255, 0, 0.1);
+        }
+        #status.connected { background: rgba(0, 255, 0, 0.3); }
+        #status.disconnected { background: rgba(255, 0, 0, 0.3); }
+        #terminal-container {
+            height: calc(100vh - 50px);
+            padding: 10px;
+        }
+        #terminal {
+            height: 100%;
+        }
+        .controls {
+            display: flex;
+            gap: 10px;
+        }
+        .btn {
+            background: #0f3460;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            padding: 6px 12px;
+            cursor: pointer;
+            font-size: 12px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #00ff00;
+            color: #0d0d0d;
+        }
+        .btn.panic {
+            background: #ff0000;
+            border-color: #ff0000;
+            color: #fff;
+        }
+        .btn.panic:hover {
+            background: #ff4444;
+        }
+        #shortcuts {
+            position: fixed;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            padding: 10px;
+            font-size: 11px;
+            border-radius: 4px;
+            display: none;
+        }
+        #shortcuts.show { display: block; }
+        #shortcuts h3 {
+            font-size: 12px;
+            margin-bottom: 8px;
+            color: #00ff00;
+        }
+        #shortcuts kbd {
+            background: #0f3460;
+            padding: 2px 6px;
+            border-radius: 3px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>👻 PhantomKernel OS <span style="font-size: 12px; opacity: 0.7;">| Remote Terminal</span></h1>
+        <div class="controls">
+            <span id="status" class="disconnected">● Disconnected</span>
+            <button class="btn" onclick="toggleShortcuts()">Help</button>
+            <button class="btn panic" onclick="sendPanic()">⚠ PANIC</button>
+        </div>
+    </div>
+    <div id="terminal-container">
+        <div id="terminal"></div>
+    </div>
+    <div id="shortcuts">
+        <h3>Keyboard Shortcuts</h3>
+        <div><kbd>q</kbd> Quit TUI</div>
+        <div><kbd>p</kbd> Panic Mode</div>
+        <div><kbd>m</kbd> Mask Mode</div>
+        <div><kbd>t</kbd> Travel Mode</div>
+        <div><kbd>k</kbd> Kill Switch</div>
+        <div><kbd>Tab</kbd> Next Tab</div>
+        <div><kbd>1-4</kbd> Switch Tab</div>
+        <div><kbd>r</kbd> Refresh</div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+    <script>
+        // Initialize terminal
+        const term = new Terminal({
+            theme: {
+                background: '#0d0d0d',
+                foreground: '#00ff00',
+                cursor: '#00ff00',
+                cursorAccent: '#0d0d0d',
+                selection: 'rgba(0, 255, 0, 0.3)',
+                black: '#0d0d0d',
+                red: '#ff0000',
+                green: '#00ff00',
+                yellow: '#ffcc00',
+                blue: '#0066ff',
+                magenta: '#ff00ff',
+                cyan: '#00ffff',
+                white: '#ffffff',
+                brightBlack: '#333333',
+                brightRed: '#ff4444',
+                brightGreen: '#00ff66',
+                brightYellow: '#ffdd00',
+                brightBlue: '#4488ff',
+                brightMagenta: '#ff44ff',
+                brightCyan: '#44ffff',
+                brightWhite: '#ffffff'
+            },
+            fontFamily: '"JetBrains Mono", "Fira Code", "Courier New", monospace',
+            fontSize: 14,
+            cursorBlink: true,
+            cursorStyle: 'block',
+            scrollback: 10000,
+            tabStopWidth: 4
+        });
+
+        const fitAddon = new FitAddon.FitAddon();
+        term.loadAddon(fitAddon);
+        term.open(document.getElementById('terminal'));
+        fitAddon.fit();
+
+        // WebSocket connection
+        let ws;
+        const statusEl = document.getElementById('status');
+        const shortcutsEl = document.getElementById('shortcuts');
+
+        function connect() {
+            const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+            const wsUrl = `${protocol}//${window.location.host}/ws`;
+            
+            ws = new WebSocket(wsUrl);
+            
+            ws.onopen = () => {
+                statusEl.textContent = '● Connected';
+                statusEl.className = 'connected';
+                term.writeln('\x1b[32mConnected to PhantomKernel OS\x1b[0m');
+                term.writeln('\x1b[33mType "help" for available commands\x1b[0m\r\n');
+            };
+            
+            ws.onclose = () => {
+                statusEl.textContent = '● Disconnected';
+                statusEl.className = 'disconnected';
+                term.writeln('\r\n\x1b[31mConnection lost. Reconnecting...\x1b[0m');
+                setTimeout(connect, 2000);
+            };
+            
+            ws.onerror = (error) => {
+                console.error('WebSocket error:', error);
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                if (data.type === 'output') {
+                    term.write(data.data);
+                } else if (data.type === 'panic') {
+                    term.writeln('\r\n\x1b[1;31m⚠️ PANIC MODE ACTIVATED ⚠️\x1b[0m');
+                    document.body.style.animation = 'glitch 0.2s infinite';
+                }
+            };
+        }
+
+        // Terminal input
+        term.onData(data => {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'input', data }));
+            }
+        });
+
+        // Window resize
+        window.addEventListener('resize', () => fitAddon.fit());
+
+        // Panic button
+        function sendPanic() {
+            if (ws && ws.readyState === WebSocket.OPEN) {
+                ws.send(JSON.stringify({ type: 'panic' }));
+                term.writeln('\r\n\x1b[1;31m⚠️ PANIC MODE ACTIVATED ⚠️\x1b[0m');
+                term.writeln('\x1b[31mNetwork kill switch: ENGAGED\x1b[0m');
+                term.writeln('\x1b[31mAll shards: LOCKED\x1b[0m');
+            }
+        }
+
+        // Toggle shortcuts
+        function toggleShortcuts() {
+            shortcutsEl.classList.toggle('show');
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'h') {
+                e.preventDefault();
+                toggleShortcuts();
+            }
+        });
+
+        // Glitch animation for panic
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes glitch {
+                0%, 100% { transform: translate(0); }
+                25% { transform: translate(-2px, 2px); }
+                50% { transform: translate(2px, -2px); }
+                75% { transform: translate(-2px, -2px); }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Start connection
+        connect();
+    </script>
+</body>
+</html>

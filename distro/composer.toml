@@ -1,0 +1,91 @@
+# PhantomKernel OS - Fedora 39 Based Distribution
+# Real Linux Desktop with GNOME
+
+name = "PhantomKernel OS"
+version = 0.1.0
+release = 1
+summary = "Privacy-First Fedora-based Linux Distribution"
+description = "PhantomKernel OS is a security-focused Linux distribution featuring persona shards, network isolation, and comprehensive audit logging."
+
+# Base configuration
+base_arch = "x86_64"
+install_weak_deps = False
+
+# Packages to include
+packages = [
+    # Base system
+    "@core",
+    "@base",
+    "@standard",
+    
+    # GNOME Desktop
+    "@^gnome-desktop-environment",
+    "gnome-tweaks",
+    "gnome-extensions-app",
+    
+    # Applications
+    "firefox",
+    "thunderbird",
+    "libreoffice-writer",
+    "libreoffice-calc",
+    "libreoffice-impress",
+    "evince",
+    "nautilus",
+    "gedit",
+    "gnome-terminal",
+    
+    # Multimedia
+    "@multimedia",
+    "gstreamer1-plugins-good",
+    "gstreamer1-plugins-bad-free",
+    "gstreamer1-plugins-ugly-free",
+    
+    # Network
+    "NetworkManager",
+    "network-manager-applet",
+    "firewalld",
+    
+    # Security
+    "selinux-policy-targeted",
+    "policycoreutils",
+    "setroubleshoot",
+    
+    # System tools
+    "vim",
+    "nano",
+    "htop",
+    "iotop",
+    "lsof",
+    "strace",
+    
+    # Development
+    "git",
+    "python3",
+    "rust",
+    "cargo",
+    
+    # PhantomKernel (will be added from local repo)
+    # "phantomkernel-daemons",
+    # "phantomkernel-desktop",
+]
+
+# Packages to exclude
+excludes = [
+    "alsa-firmware",
+    "alsa-tools-firmware",
+    "avahi-autoipd",
+    "bluez-cups",
+    "cups-browsed",
+    "fprintd-pam",
+    "glibc-all-langpacks",
+    "iprutils",
+    "ivtv-firmware",
+    "iwl*firmware",
+    "libertas*",
+    "oddjob",
+    "oddjob-mkhomedir",
+    "psacct",
+    "rdma",
+    "sound-theme-freedesktop",
+    "tuned",
+]

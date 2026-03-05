@@ -1,0 +1,6 @@
+[edition]
+name = "debian"
+
+[edition.debian]
+apt_channel = "stable"
+

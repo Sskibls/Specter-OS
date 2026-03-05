@@ -1,0 +1,7 @@
+[package]
+name = "gkctl"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+gk-audit = { path = "../../libs/gk-audit" }

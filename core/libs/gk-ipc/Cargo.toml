@@ -1,0 +1,10 @@
+[package]
+name = "gk-ipc"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anyhow = "1"
+gk-types = { path = "../gk-types" }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"

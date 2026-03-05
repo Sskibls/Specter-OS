@@ -1,0 +1,14 @@
+[Unit]
+Description=PhantomKernel Shard Lifecycle Service
+After=phantomkernel-policyd.service
+Requires=phantomkernel-policyd.service
+
+[Service]
+Type=simple
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-shardd
+Restart=on-failure
+
+[Install]
+WantedBy=phantomkernel.target
+

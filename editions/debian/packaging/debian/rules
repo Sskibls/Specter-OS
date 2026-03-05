@@ -1,0 +1,36 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_build:
+	cargo build --release --workspace
+
+override_dh_auto_install:
+	# Install binaries for each package
+	mkdir -p debian/ghostkernel-init/usr/bin
+	install -m 755 target/release/ghostkernel-init debian/ghostkernel-init/usr/bin/
+
+	mkdir -p debian/ghostkernel-policyd/usr/bin
+	install -m 755 target/release/ghostkernel-policyd debian/ghostkernel-policyd/usr/bin/
+
+	mkdir -p debian/ghostkernel-shardd/usr/bin
+	install -m 755 target/release/ghostkernel-shardd debian/ghostkernel-shardd/usr/bin/
+
+	mkdir -p debian/ghostkernel-netd/usr/bin
+	install -m 755 target/release/ghostkernel-netd debian/ghostkernel-netd/usr/bin/
+
+	mkdir -p debian/ghostkernel-airlockd/usr/bin
+	install -m 755 target/release/ghostkernel-airlockd debian/ghostkernel-airlockd/usr/bin/
+
+	mkdir -p debian/ghostkernel-auditd/usr/bin
+	install -m 755 target/release/ghostkernel-auditd debian/ghostkernel-auditd/usr/bin/
+
+	mkdir -p debian/ghostkernel-guardian/usr/bin
+	install -m 755 target/release/ghostkernel-guardian debian/ghostkernel-guardian/usr/bin/
+
+	mkdir -p debian/ghostkernel-updated/usr/bin
+	install -m 755 target/release/ghostkernel-updated debian/ghostkernel-updated/usr/bin/
+
+	mkdir -p debian/gkctl/usr/bin
+	install -m 755 target/release/gkctl debian/gkctl/usr/bin/

@@ -1,0 +1,12 @@
+[Unit]
+Description=PhantomKernel Update Service
+After=phantomkernel-airlockd.service
+
+[Service]
+Type=oneshot
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-updated
+
+[Install]
+WantedBy=phantomkernel.target
+

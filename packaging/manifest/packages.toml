@@ -1,0 +1,13 @@
+[shared]
+packages = [
+  "phantomkernel-core-libs",
+  "phantomkernel-daemons",
+  "phantomkernel-cli",
+]
+
+[debian]
+edition_package = "phantomkernel-edition-debian"
+
+[fedora]
+edition_package = "phantomkernel-edition-fedora"
+

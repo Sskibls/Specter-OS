@@ -1,0 +1,8 @@
+[Unit]
+Description=GhostKernel Core Service Target
+Wants=ghostkernel-init.service ghostkernel-auditd.service ghostkernel-policyd.service ghostkernel-shardd.service ghostkernel-netd.service ghostkernel-airlockd.service ghostkernel-guardian.service
+After=network-online.target
+
+[Install]
+WantedBy=multi-user.target
+

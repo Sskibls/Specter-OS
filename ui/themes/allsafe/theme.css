@@ -1,0 +1,78 @@
+/*
+ * PhantomKernel OS - Allsafe Theme
+ * Clean professional security aesthetic
+ */
+
+:root {
+    --allsafe-bg: #1a1a2e;
+    --allsafe-fg: #eaeaea;
+    --allsafe-primary: #0f3460;
+    --allsafe-accent: #16213e;
+    --allsafe-blue: #00adb5;
+    --allsafe-green: #00ff88;
+    --allsafe-red: #ff6b6b;
+    --allsafe-yellow: #ffd93d;
+    --font-sans: 'Inter', 'Segoe UI', system-ui, sans-serif;
+}
+
+.terminal-allsafe {
+    background: linear-gradient(135deg, var(--allsafe-bg) 0%, var(--allsafe-accent) 100%);
+    color: var(--allsafe-fg);
+    font-family: var(--font-sans);
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.terminal-allsafe .prompt {
+    color: var(--allsafe-blue);
+}
+
+.terminal-allsafe .output-success {
+    color: var(--allsafe-green);
+}
+
+.terminal-allsafe .output-error {
+    color: var(--allsafe-red);
+}
+
+.terminal-allsafe .output-warning {
+    color: var(--allsafe-yellow);
+}
+
+.terminal-allsafe .output-info {
+    color: var(--allsafe-blue);
+}
+
+.terminal-allsafe .section-header {
+    color: var(--allsafe-blue);
+    font-weight: 600;
+    border-left: 3px solid var(--allsafe-blue);
+    padding-left: 12px;
+    margin-top: 16px;
+}
+
+.terminal-allsafe .card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 8px 0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terminal-allsafe .status-badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.terminal-allsafe .status-badge.active {
+    background: var(--allsafe-green);
+    color: var(--allsafe-bg);
+}
+
+.terminal-allsafe .status-badge.inactive {
+    background: var(--allsafe-primary);
+    color: var(--allsafe-fg);
+}

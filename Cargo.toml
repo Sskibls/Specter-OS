@@ -1,0 +1,41 @@
+[workspace]
+resolver = "2"
+members = [
+  "xtask",
+  "core/libs/gk-types",
+  "core/libs/gk-config",
+  "core/libs/gk-ipc",
+  "core/libs/gk-crypto",
+  "core/libs/gk-persistence",
+  "core/libs/gk-policy",
+  "core/libs/gk-audit",
+  "core/libs/gk-platform-api",
+  "core/libs/gk-privexec",
+  "core/libs/gk-metadata-sanitizer",
+  "core/daemons/ghostkernel-init",
+  "core/daemons/ghostkernel-auditd",
+  "core/daemons/ghostkernel-policyd",
+  "core/daemons/ghostkernel-shardd",
+  "core/daemons/ghostkernel-netd",
+  "core/daemons/ghostkernel-airlockd",
+  "core/daemons/ghostkernel-updated",
+  "core/daemons/ghostkernel-guardian",
+  "core/cli/gkctl",
+  "core/cli/ghostkernel-shell",
+  "editions/debian/backend/debian-backend",
+  "editions/fedora/backend/fedora-backend",
+  "tests/harness",
+  "ui/desktop",
+  "ui/tui",
+  "packaging/vnc-web",
+]
+
+[workspace.package]
+edition = "2021"
+license = "Apache-2.0"
+version = "0.1.0"
+
+[workspace.lints.clippy]
+dbg_macro = "deny"
+todo = "deny"
+unwrap_used = "deny"

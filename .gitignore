@@ -1,0 +1,40 @@
+# Build artifacts
+target/
+*.iso
+*.sha256
+*.tar.gz
+*.img
+*.squashfs
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Build outputs
+output/
+dist/
+build/
+
+# Dependencies
+node_modules/
+vendor/
+
+# Environment
+.env
+.env.local

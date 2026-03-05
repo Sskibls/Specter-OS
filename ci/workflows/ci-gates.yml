@@ -1,0 +1,92 @@
+name: phantomkernel-ci-gates
+
+on:
+  pull_request:
+  push:
+    branches: ["main", "release/**"]
+
+jobs:
+  rust-quality:
+    name: Gate 1 - Rust Fmt/Clippy/Test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Cargo fmt
+        run: cargo fmt --all -- --check
+      - name: Cargo clippy
+        run: cargo clippy --workspace --all-targets -- -D warnings
+      - name: Cargo test
+        run: cargo test --workspace
+
+  interfaces:
+    name: Gate 2 - Interface Lint/Breaking
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install buf
+        run: |
+          curl -sSL "https://github.com/bufbuild/buf/releases/latest/download/buf-$(uname -s)-$(uname -m).tar.gz" -o /tmp/buf.tar.gz
+          tar -xzf /tmp/buf.tar.gz -C /tmp
+          sudo mv /tmp/buf/bin/buf /usr/local/bin/buf
+      - name: Buf lint
+        run: buf lint interfaces/proto
+      - name: Buf breaking check
+        run: buf breaking interfaces/proto --against '.git#branch=main'
+
+  config-schema:
+    name: Gate 3 - Config Schema Validation
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Validate config schema placeholders
+        run: ./ci/scripts/validate-config-schema.sh
+
+  security:
+    name: Gate 4 - Dependency and SBOM Checks
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Install cargo deny and cargo audit
+        run: |
+          cargo install cargo-deny --locked
+          cargo install cargo-audit --locked
+      - name: Cargo deny
+        run: cargo deny check
+      - name: Cargo audit
+        run: cargo audit
+      - name: Generate SBOM placeholder
+        run: ./ci/scripts/generate-sbom.sh
+
+  packaging:
+    name: Gate 5 - Debian/Fedora Packaging
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build Debian package placeholders
+        run: ./ci/scripts/build-debian-packages.sh
+      - name: Build Fedora package placeholders
+        run: ./ci/scripts/build-fedora-packages.sh
+
+  vm-smoke:
+    name: Gate 6 - VM Smoke Tests
+    runs-on: ubuntu-latest
+    needs: [rust-quality, packaging]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: dtolnay/rust-toolchain@stable
+      - name: Run VM smoke placeholder checks
+        run: ./ci/scripts/run-vm-smoke.sh
+
+  release-repro:
+    name: Gate 7 - Reproducibility and Signatures
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/heads/release/')
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run reproducibility check placeholder
+        run: ./ci/scripts/check-reproducibility.sh
+      - name: Verify signatures placeholder
+        run: ./ci/scripts/verify-signatures.sh

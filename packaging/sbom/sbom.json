@@ -1,0 +1,755 @@
+{
+  "bom_version": "1.0",
+  "generated_at": "2026-03-05T20:33:05.917427",
+  "project": "PhantomKernel OS",
+  "description": "PhantomKernel OS Software Bill of Materials",
+  "supply_chain_verification": {
+    "metadata_type": "rust-cargo-metadata",
+    "checksum_algorithm": "sha256",
+    "reproducible_target": true,
+    "signing_policy": "multi-signer"
+  },
+  "dependencies": [
+    {
+      "name": "anyhow",
+      "version": "1.0.102",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Flexible concrete Error type built on std::error::Error",
+      "checksum": null
+    },
+    {
+      "name": "bitflags",
+      "version": "2.11.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A macro to generate structures which behave like bitflags.\n",
+      "checksum": null
+    },
+    {
+      "name": "block-buffer",
+      "version": "0.10.4",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Buffer type for block processing of data",
+      "checksum": null
+    },
+    {
+      "name": "cfg-if",
+      "version": "1.0.4",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A macro to ergonomically define an item depending on a large number of #[cfg]\nparameters. Structured like an if-else chain, the first matching branch is the\nitem that gets emitted.\n",
+      "checksum": null
+    },
+    {
+      "name": "cpufeatures",
+      "version": "0.2.17",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Lightweight runtime CPU feature detection for aarch64, loongarch64, and x86/x86_64 targets, \nwith no_std support and support for mobile targets including Android and iOS\n",
+      "checksum": null
+    },
+    {
+      "name": "crypto-common",
+      "version": "0.1.7",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Common cryptographic traits",
+      "checksum": null
+    },
+    {
+      "name": "digest",
+      "version": "0.10.7",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Traits for cryptographic hash functions and message authentication codes",
+      "checksum": null
+    },
+    {
+      "name": "dyn-clone",
+      "version": "1.0.20",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Clone trait that is dyn-compatible",
+      "checksum": null
+    },
+    {
+      "name": "equivalent",
+      "version": "1.0.2",
+      "license": "Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Traits for key comparison in maps.",
+      "checksum": null
+    },
+    {
+      "name": "errno",
+      "version": "0.3.14",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Cross-platform interface to the `errno` variable.",
+      "checksum": null
+    },
+    {
+      "name": "fastrand",
+      "version": "2.3.0",
+      "license": "Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A simple and fast random number generator",
+      "checksum": null
+    },
+    {
+      "name": "foldhash",
+      "version": "0.1.5",
+      "license": "Zlib",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A fast, non-cryptographic, minimally DoS-resistant hashing algorithm.",
+      "checksum": null
+    },
+    {
+      "name": "generic-array",
+      "version": "0.14.7",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Generic types implementing functionality of arrays",
+      "checksum": null
+    },
+    {
+      "name": "getrandom",
+      "version": "0.4.2",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A small cross-platform library for retrieving random data from system source",
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-airlockd",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-auditd",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-debian-backend",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-fedora-backend",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-guardian",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-init",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-netd",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-policyd",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-shardd",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-test-harness",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "phantomkernel-updated",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-audit",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-config",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-crypto",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-ipc",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-persistence",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-platform-api",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-policy",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gk-privexec",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": "Privileged execution controls for PhantomKernel OS",
+      "checksum": null
+    },
+    {
+      "name": "gk-types",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "gkctl",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.15.5",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A Rust port of Google's SwissTable hash map",
+      "checksum": null
+    },
+    {
+      "name": "hashbrown",
+      "version": "0.16.1",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A Rust port of Google's SwissTable hash map",
+      "checksum": null
+    },
+    {
+      "name": "heck",
+      "version": "0.5.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "heck is a case conversion library.",
+      "checksum": null
+    },
+    {
+      "name": "hmac",
+      "version": "0.12.1",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Generic implementation of Hash-based Message Authentication Code (HMAC)",
+      "checksum": null
+    },
+    {
+      "name": "id-arena",
+      "version": "2.3.0",
+      "license": "MIT/Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A simple, id-based arena.",
+      "checksum": null
+    },
+    {
+      "name": "indexmap",
+      "version": "2.13.0",
+      "license": "Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A hash table with consistent order and fast iteration.",
+      "checksum": null
+    },
+    {
+      "name": "itoa",
+      "version": "1.0.17",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Fast integer primitive to string conversion",
+      "checksum": null
+    },
+    {
+      "name": "leb128fmt",
+      "version": "0.1.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A library to encode and decode LEB128 compressed integers.",
+      "checksum": null
+    },
+    {
+      "name": "libc",
+      "version": "0.2.182",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Raw FFI bindings to platform libraries like libc.",
+      "checksum": null
+    },
+    {
+      "name": "linux-raw-sys",
+      "version": "0.12.1",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Generated bindings for Linux's userspace API",
+      "checksum": null
+    },
+    {
+      "name": "log",
+      "version": "0.4.29",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A lightweight logging facade for Rust\n",
+      "checksum": null
+    },
+    {
+      "name": "memchr",
+      "version": "2.8.0",
+      "license": "Unlicense OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Provides extremely fast (uses SIMD on x86_64, aarch64 and wasm32) routines for\n1, 2 or 3 byte search and single substring search.\n",
+      "checksum": null
+    },
+    {
+      "name": "once_cell",
+      "version": "1.21.3",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Single assignment cells and lazy values.",
+      "checksum": null
+    },
+    {
+      "name": "prettyplease",
+      "version": "0.2.37",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A minimal `syn` syntax tree pretty-printer",
+      "checksum": null
+    },
+    {
+      "name": "proc-macro2",
+      "version": "1.0.106",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A substitute implementation of the compiler's `proc_macro` API to decouple token-based libraries from the procedural macro use case.",
+      "checksum": null
+    },
+    {
+      "name": "quote",
+      "version": "1.0.45",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Quasi-quoting macro quote!(...)",
+      "checksum": null
+    },
+    {
+      "name": "r-efi",
+      "version": "6.0.0",
+      "license": "MIT OR Apache-2.0 OR LGPL-2.1-or-later",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "UEFI Reference Specification Protocol Constants and Definitions",
+      "checksum": null
+    },
+    {
+      "name": "rustix",
+      "version": "1.1.4",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Safe Rust bindings to POSIX/Unix/Linux/Winsock-like syscalls",
+      "checksum": null
+    },
+    {
+      "name": "schemars",
+      "version": "0.8.22",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Generate JSON Schemas from Rust code",
+      "checksum": null
+    },
+    {
+      "name": "schemars_derive",
+      "version": "0.8.22",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Macros for #[derive(JsonSchema)], for use with schemars",
+      "checksum": null
+    },
+    {
+      "name": "semver",
+      "version": "1.0.27",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Parser and evaluator for Cargo's flavor of Semantic Versioning",
+      "checksum": null
+    },
+    {
+      "name": "serde",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A generic serialization/deserialization framework",
+      "checksum": null
+    },
+    {
+      "name": "serde_core",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Serde traits only, with no support for derive -- use the `serde` crate instead",
+      "checksum": null
+    },
+    {
+      "name": "serde_derive",
+      "version": "1.0.228",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Macros 1.1 implementation of #[derive(Serialize, Deserialize)]",
+      "checksum": null
+    },
+    {
+      "name": "serde_derive_internals",
+      "version": "0.29.1",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "AST representation used by Serde derive macros. Unstable.",
+      "checksum": null
+    },
+    {
+      "name": "serde_json",
+      "version": "1.0.149",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A JSON serialization file format",
+      "checksum": null
+    },
+    {
+      "name": "serde_spanned",
+      "version": "0.6.9",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Serde-compatible spanned Value",
+      "checksum": null
+    },
+    {
+      "name": "sha2",
+      "version": "0.10.9",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Pure Rust implementation of the SHA-2 hash function family\nincluding SHA-224, SHA-256, SHA-384, and SHA-512.\n",
+      "checksum": null
+    },
+    {
+      "name": "subtle",
+      "version": "2.6.1",
+      "license": "BSD-3-Clause",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Pure-Rust traits and utilities for constant-time cryptographic implementations.",
+      "checksum": null
+    },
+    {
+      "name": "syn",
+      "version": "2.0.117",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Parser for Rust source code",
+      "checksum": null
+    },
+    {
+      "name": "tempfile",
+      "version": "3.26.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A library for managing temporary files and directories.",
+      "checksum": null
+    },
+    {
+      "name": "thiserror",
+      "version": "1.0.69",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "derive(Error)",
+      "checksum": null
+    },
+    {
+      "name": "thiserror-impl",
+      "version": "1.0.69",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Implementation detail of the `thiserror` crate",
+      "checksum": null
+    },
+    {
+      "name": "toml",
+      "version": "0.8.23",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A native Rust encoder and decoder of TOML-formatted files and streams. Provides\nimplementations of the standard Serialize/Deserialize traits for TOML data to\nfacilitate deserializing and serializing Rust structures.\n",
+      "checksum": null
+    },
+    {
+      "name": "toml_datetime",
+      "version": "0.6.11",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A TOML-compatible datetime type",
+      "checksum": null
+    },
+    {
+      "name": "toml_edit",
+      "version": "0.22.27",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Yet another format-preserving TOML parser.",
+      "checksum": null
+    },
+    {
+      "name": "toml_write",
+      "version": "0.1.2",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A low-level interface for writing out TOML\n",
+      "checksum": null
+    },
+    {
+      "name": "typenum",
+      "version": "1.19.0",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Typenum is a Rust library for type-level numbers evaluated at\n    compile time. It currently supports bits, unsigned integers, and signed\n    integers. It also provides a type-level array of type-level numbers, but its\n    implementation is incomplete.",
+      "checksum": null
+    },
+    {
+      "name": "unicode-ident",
+      "version": "1.0.24",
+      "license": "(MIT OR Apache-2.0) AND Unicode-3.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Determine whether characters have the XID_Start or XID_Continue properties according to Unicode Standard Annex #31",
+      "checksum": null
+    },
+    {
+      "name": "unicode-xid",
+      "version": "0.2.6",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Determine whether characters have the XID_Start\nor XID_Continue properties according to\nUnicode Standard Annex #31.\n",
+      "checksum": null
+    },
+    {
+      "name": "version_check",
+      "version": "0.9.5",
+      "license": "MIT/Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Tiny crate to check the version of the installed/running rustc.",
+      "checksum": null
+    },
+    {
+      "name": "wasip2",
+      "version": "1.0.2+wasi-0.2.9",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "WASIp2 API bindings for Rust",
+      "checksum": null
+    },
+    {
+      "name": "wasip3",
+      "version": "0.4.0+wasi-0.3.0-rc-2026-01-06",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "WASIp3 API bindings for Rust",
+      "checksum": null
+    },
+    {
+      "name": "wasm-encoder",
+      "version": "0.244.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A low-level WebAssembly encoder.\n",
+      "checksum": null
+    },
+    {
+      "name": "wasm-metadata",
+      "version": "0.244.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Read and manipulate WebAssembly metadata",
+      "checksum": null
+    },
+    {
+      "name": "wasmparser",
+      "version": "0.244.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A simple event-driven library for parsing WebAssembly binary files.\n",
+      "checksum": null
+    },
+    {
+      "name": "windows-link",
+      "version": "0.2.1",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Linking for Windows",
+      "checksum": null
+    },
+    {
+      "name": "windows-sys",
+      "version": "0.61.2",
+      "license": "MIT OR Apache-2.0",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Rust for Windows",
+      "checksum": null
+    },
+    {
+      "name": "winnow",
+      "version": "0.7.14",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A byte-oriented, zero-copy, parser combinators library",
+      "checksum": null
+    },
+    {
+      "name": "wit-bindgen",
+      "version": "0.51.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Rust bindings generator and runtime support for WIT and the component model.\nUsed when compiling Rust programs to the component model.\n",
+      "checksum": null
+    },
+    {
+      "name": "wit-bindgen-core",
+      "version": "0.51.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Low-level support for bindings generation based on WIT files for use with\n`wit-bindgen-cli` and other languages.\n",
+      "checksum": null
+    },
+    {
+      "name": "wit-bindgen-rust",
+      "version": "0.51.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Rust bindings generator for WIT and the component model, typically used through\nthe `wit-bindgen` crate's `generate!` macro.\n",
+      "checksum": null
+    },
+    {
+      "name": "wit-bindgen-rust-macro",
+      "version": "0.51.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Procedural macro paired with the `wit-bindgen` crate.\n",
+      "checksum": null
+    },
+    {
+      "name": "wit-component",
+      "version": "0.244.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Tooling for working with `*.wit` and component files together.\n",
+      "checksum": null
+    },
+    {
+      "name": "wit-parser",
+      "version": "0.244.0",
+      "license": "Apache-2.0 WITH LLVM-exception OR Apache-2.0 OR MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "Tooling for parsing `*.wit` files and working with their contents.\n",
+      "checksum": null
+    },
+    {
+      "name": "xtask",
+      "version": "0.1.0",
+      "license": null,
+      "source": null,
+      "description": null,
+      "checksum": null
+    },
+    {
+      "name": "zmij",
+      "version": "1.0.21",
+      "license": "MIT",
+      "source": "registry+https://github.com/rust-lang/crates.io-index",
+      "description": "A double-to-string conversion algorithm based on Schubfach and yy",
+      "checksum": null
+    }
+  ],
+  "vulnerabilities": {
+    "tracking_id": "PhantomKernel-CVE-2026",
+    "status": "monitored",
+    "known_cves": []
+  }
+}

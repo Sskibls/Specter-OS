@@ -1,0 +1,15 @@
+[Unit]
+Description=PhantomKernel Audit Service
+After=phantomkernel-init.service
+Requires=phantomkernel-init.service
+Before=phantomkernel-policyd.service
+
+[Service]
+Type=simple
+User=phantomkernel
+ExecStart=/usr/bin/phantomkernel-auditd
+Restart=on-failure
+
+[Install]
+WantedBy=phantomkernel.target
+

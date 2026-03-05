@@ -1,0 +1,95 @@
+/*
+ * PhantomKernel OS - DarkArmy Theme
+ * High-contrast strict mode for maximum visibility
+ */
+
+:root {
+    --darkarmy-bg: #000000;
+    --darkarmy-fg: #ffffff;
+    --darkarmy-red: #ff0000;
+    --darkarmy-green: #00ff00;
+    --darkarmy-blue: #0080ff;
+    --darkarmy-yellow: #ffff00;
+    --darkarmy-cyan: #00ffff;
+    --darkarmy-magenta: #ff00ff;
+    --font-mono: 'Share Tech Mono', 'Courier New', monospace;
+}
+
+.terminal-darkarmy {
+    background-color: var(--darkarmy-bg);
+    color: var(--darkarmy-fg);
+    font-family: var(--font-mono);
+    font-size: 15px;
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+}
+
+.terminal-darkarmy .prompt {
+    color: var(--darkarmy-red);
+    font-weight: bold;
+}
+
+.terminal-darkarmy .output-success {
+    color: var(--darkarmy-green);
+    font-weight: bold;
+}
+
+.terminal-darkarmy .output-error {
+    color: var(--darkarmy-red);
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.terminal-darkarmy .output-warning {
+    color: var(--darkarmy-yellow);
+}
+
+.terminal-darkarmy .output-info {
+    color: var(--darkarmy-cyan);
+}
+
+.terminal-darkarmy .section-header {
+    color: var(--darkarmy-fg);
+    background: var(--darkarmy-red);
+    padding: 4px 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.terminal-darkarmy .alert-box {
+    border: 2px solid var(--darkarmy-red);
+    background: rgba(255, 0, 0, 0.1);
+    padding: 12px;
+    margin: 8px 0;
+}
+
+.terminal-darkarmy .alert-box.critical {
+    animation: pulse-red 1s infinite;
+}
+
+@keyframes pulse-red {
+    0%, 100% { border-color: var(--darkarmy-red); }
+    50% { border-color: var(--darkarmy-yellow); }
+}
+
+.terminal-darkarmy .data-table {
+    border: 1px solid var(--darkarmy-fg);
+}
+
+.terminal-darkarmy .data-table th {
+    background: var(--darkarmy-red);
+    color: var(--darkarmy-bg);
+    padding: 6px 12px;
+    text-transform: uppercase;
+}
+
+.terminal-darkarmy .data-table td {
+    border-bottom: 1px solid var(--darkarmy-fg);
+    padding: 6px 12px;
+}
+
+.terminal-darkarmy .divider {
+    border-top: 2px solid var(--darkarmy-fg);
+    margin: 16px 0;
+}
