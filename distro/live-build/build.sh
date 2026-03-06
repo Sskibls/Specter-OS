@@ -80,6 +80,14 @@ wmctrl
 tor
 openssl
 
+# Kernel (required for bootable ISO)
+linux-image-amd64
+linux-headers-amd64
+grub-pc-bin
+grub-efi-amd64-bin
+isolinux
+syslinux-common
+
 # Firmware
 firmware-linux
 firmware-linux-nonfree
