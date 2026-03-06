@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>SpecterOS VPN Settings</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      background: #0a0a0f;
+      color: #c0c0d0;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 40px;
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    h1 { color: #00c8aa; margin-bottom: 30px; }
+    .section {
+      background: #1a1a2e;
+      border: 1px solid rgba(0, 200, 170, 0.2);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+    }
+    .section-title {
+      font-size: 14px;
+      color: #00c8aa;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    label:last-child { border-bottom: none; }
+    .label-text { font-size: 13px; }
+    .label-desc { font-size: 11px; color: #607080; margin-top: 4px; }
+    input[type="checkbox"] {
+      width: 40px;
+      height: 20px;
+      appearance: none;
+      background: #2a2a3a;
+      border-radius: 10px;
+      position: relative;
+      cursor: pointer;
+    }
+    input[type="checkbox"]:checked {
+      background: #00c8aa;
+    }
+    input[type="checkbox"]::before {
+      content: '';
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #fff;
+      top: 2px;
+      left: 2px;
+      transition: 0.3s;
+    }
+    input[type="checkbox"]:checked::before {
+      left: 22px;
+    }
+    .save-btn {
+      background: linear-gradient(135deg, #00c8aa, #00aa88);
+      color: #000;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+    .save-btn:hover {
+      background: linear-gradient(135deg, #00ffcc, #00ccaa);
+    }
+  </style>
+</head>
+<body>
+  <h1>🛡️ SpecterOS VPN Settings</h1>
+  
+  <div class="section">
+    <div class="section-title">VPN Settings</div>
+    <label>
+      <div>
+        <div class="label-text">Auto-connect on browser start</div>
+        <div class="label-desc">Automatically connect VPN when browser opens</div>
+      </div>
+      <input type="checkbox" id="autoConnect">
+    </label>
+    <label>
+      <div>
+        <div class="label-text">Kill Switch</div>
+        <div class="label-desc">Block all traffic if VPN disconnects</div>
+      </div>
+      <input type="checkbox" id="killSwitch" checked>
+    </label>
+    <label>
+      <div>
+        <div class="label-text">DNS Leak Protection</div>
+        <div class="label-desc">Route DNS through Tor</div>
+      </div>
+      <input type="checkbox" id="dnsLeak" checked>
+    </label>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">Tor Settings</div>
+    <label>
+      <div>
+        <div class="label-text">Enable Tor Network</div>
+        <div class="label-desc">Route all traffic through Tor</div>
+      </div>
+      <input type="checkbox" id="torEnabled" checked>
+    </label>
+    <label>
+      <div>
+        <div class="label-text">Strict Exit Nodes</div>
+        <div class="label-desc">Only use selected country for exit</div>
+      </div>
+      <input type="checkbox" id="strictNodes">
+    </label>
+  </div>
+  
+  <div class="section">
+    <div class="section-title">Advanced</div>
+    <label>
+      <div>
+        <div class="label-text">Show connection speed</div>
+        <div class="label-desc">Display current connection speed</div>
+      </div>
+      <input type="checkbox" id="showSpeed">
+    </label>
+    <label>
+      <div>
+        <div class="label-text">Notifications</div>
+        <div class="label-desc">Show connection notifications</div>
+      </div>
+      <input type="checkbox" id="notifications" checked>
+    </label>
+  </div>
+  
+  <button class="save-btn" id="saveBtn">Save Settings</button>
+  
+  <script src="options.js"></script>
+</body>
+</html>

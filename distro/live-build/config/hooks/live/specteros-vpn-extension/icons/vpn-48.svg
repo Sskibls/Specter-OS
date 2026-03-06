@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48 48">
+  <defs>
+    <linearGradient id="vpn-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#00d4aa"/>
+      <stop offset="100%" stop-color="#00aa88"/>
+    </linearGradient>
+  </defs>
+  <!-- Shield background -->
+  <path d="M24 4 L44 14 L44 28 C44 38 35 44 24 44 C13 44 4 38 4 28 L4 14 Z" 
+        fill="url(#vpn-grad)" stroke="#00d4aa" stroke-width="2"/>
+  <!-- VPN icon -->
+  <circle cx="24" cy="22" r="8" fill="#0a0a0f" opacity="0.3"/>
+  <circle cx="24" cy="22" r="5" fill="#0a0a0f"/>
+  <!-- Connection arcs -->
+  <path d="M24 12 L24 8" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"/>
+  <path d="M24 32 L24 36" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"/>
+  <path d="M14 22 L10 22" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"/>
+  <path d="M34 22 L38 22" stroke="#0a0a0f" stroke-width="2" stroke-linecap="round"/>
+</svg>

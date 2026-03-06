@@ -1,0 +1,75 @@
+{
+  "manifest_version": 2,
+  "name": "SpecterOS VPN",
+  "version": "1.0.0",
+  "description": "Built-in VPN with Tor routing and country selection",
+  "author": "SpecterOS Project",
+  "homepage_url": "https://specter-os.web.app",
+  
+  "icons": {
+    "48": "icons/vpn-48.png",
+    "96": "icons/vpn-96.png"
+  },
+  
+  "permissions": [
+    "proxy",
+    "storage",
+    "tabs",
+    "webRequest",
+    "webRequestBlocking",
+    "alarms",
+    "notifications",
+    "<all_urls>"
+  ],
+  
+  "background": {
+    "scripts": ["background.js"],
+    "persistent": true
+  },
+  
+  "browser_action": {
+    "default_icon": {
+      "48": "icons/vpn-48.png",
+      "96": "icons/vpn-96.png"
+    },
+    "default_title": "SpecterOS VPN",
+    "default_popup": "popup/popup.html",
+    "browser_style": false
+  },
+  
+  "sidebar_action": {
+    "default_icon": {
+      "48": "icons/vpn-48.png"
+    },
+    "default_title": "SpecterOS VPN",
+    "default_panel": "popup/popup.html"
+  },
+  
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+V",
+        "mac": "Command+Shift+V"
+      }
+    },
+    "toggle-vpn": {
+      "suggested_key": {
+        "default": "Ctrl+Shift+X",
+        "mac": "Command+Shift+X"
+      },
+      "description": "Toggle VPN connection"
+    }
+  },
+  
+  "options_ui": {
+    "page": "options/options.html",
+    "open_in_tab": true
+  },
+  
+  "applications": {
+    "gecko": {
+      "id": "specteros-vpn@specteros.os",
+      "strict_min_version": "57.0"
+    }
+  }
+}

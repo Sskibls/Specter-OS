@@ -77,6 +77,8 @@ python3-gi
 python3-gi-cairo
 python3-psutil
 wmctrl
+tor
+openssl
 
 # Firmware
 firmware-linux
@@ -112,8 +114,11 @@ mkdir -p config/hooks/live
 # Custom UI (hand-crafted, not AI slop)
 cp "$SCRIPT_DIR/config/hooks/live/specteros-custom-ui.hook.chroot" config/hooks/live/
 
-# Hardened browser
+# Hardened browser with uBlock
 cp "$SCRIPT_DIR/config/hooks/live/specteros-browser.hook.chroot" config/hooks/live/
+
+# Built-in VPN extension (unremovable)
+cp "$SCRIPT_DIR/config/hooks/live/specteros-vpn-install.hook.chroot" config/hooks/live/
 
 # SpecterOS binaries hook
 cp "$SCRIPT_DIR/config/hooks/live/specteros.hook.chroot" config/hooks/live/

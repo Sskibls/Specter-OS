@@ -728,6 +728,16 @@ PYTHON
 
 chmod +x /opt/specteros/browser/shield-controller.py
 
+# ============================================
+# 9. SETUP VPN EXTENSION DIRECTORY
+# ============================================
+
+# Copy VPN extension from build directory
+if [ -d /home/loko/Specteros-OS/distro/live-build/config/hooks/live/specteros-vpn-extension ]; then
+    mkdir -p /opt/specteros/vpn-extension
+    cp -r /home/loko/Specteros-OS/distro/live-build/config/hooks/live/specteros-vpn-extension/* /opt/specteros/vpn-extension/
+fi
+
 echo "✓ SpecterOS Browser installed and hardened"
 echo "  - Firefox ESR with uBlock Origin (Brave-style blocking)"
 echo "  - All telemetry disabled"
@@ -736,3 +746,4 @@ echo "  - Auto-clear cookies on close"
 echo "  - HTTPS-Only mode"
 echo "  - WebRTC disabled"
 echo "  - Custom start page with shield controller"
+echo "  - Built-in VPN extension (unremovable)"

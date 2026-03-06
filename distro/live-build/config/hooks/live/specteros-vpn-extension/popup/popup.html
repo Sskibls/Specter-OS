@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SpecterOS VPN</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      width: 320px;
+      background: #0f0f1a;
+      color: #c0c0d0;
+      font-family: 'JetBrains Mono', 'Consolas', monospace;
+      font-size: 13px;
+    }
+    
+    .header {
+      background: linear-gradient(135deg, #1a1a2e 0%, #0f0f1a 100%);
+      padding: 20px;
+      text-align: center;
+      border-bottom: 1px solid rgba(0, 200, 170, 0.3);
+    }
+    
+    .logo {
+      font-size: 32px;
+      margin-bottom: 8px;
+    }
+    
+    .title {
+      font-size: 16px;
+      font-weight: 700;
+      color: #00c8aa;
+      letter-spacing: 1px;
+    }
+    
+    .status {
+      font-size: 11px;
+      color: #607080;
+      margin-top: 4px;
+    }
+    
+    .content {
+      padding: 20px;
+    }
+    
+    .power-button {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      border: 3px solid #304050;
+      background: #1a1a2e;
+      color: #607080;
+      font-size: 28px;
+      cursor: pointer;
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s;
+    }
+    
+    .power-button:hover {
+      border-color: #00c8aa;
+      color: #00c8aa;
+    }
+    
+    .power-button.connected {
+      background: linear-gradient(135deg, #00c8aa 0%, #00aa88 100%);
+      border-color: #00c8aa;
+      color: #000000;
+      box-shadow: 0 0 30px rgba(0, 200, 170, 0.4);
+    }
+    
+    .country-selector {
+      margin-bottom: 20px;
+    }
+    
+    .country-label {
+      font-size: 11px;
+      color: #607080;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+    
+    .country-dropdown {
+      width: 100%;
+      padding: 10px 12px;
+      background: #1a1a2e;
+      border: 1px solid rgba(0, 200, 170, 0.25);
+      border-radius: 8px;
+      color: #c0c0d0;
+      font-family: inherit;
+      font-size: 13px;
+      cursor: pointer;
+      outline: none;
+    }
+    
+    .country-dropdown:hover {
+      border-color: #00c8aa;
+    }
+    
+    .country-dropdown:focus {
+      border-color: #00c8aa;
+      box-shadow: 0 0 10px rgba(0, 200, 170, 0.2);
+    }
+    
+    .country-dropdown option {
+      background: #0f0f1a;
+      color: #c0c0d0;
+    }
+    
+    .features {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    
+    .feature {
+      background: rgba(0, 200, 170, 0.08);
+      border: 1px solid rgba(0, 200, 170, 0.15);
+      border-radius: 6px;
+      padding: 10px;
+      text-align: center;
+    }
+    
+    .feature-icon {
+      font-size: 18px;
+      margin-bottom: 4px;
+    }
+    
+    .feature-label {
+      font-size: 10px;
+      color: #8090a0;
+    }
+    
+    .feature.active {
+      background: rgba(0, 200, 170, 0.15);
+      border-color: #00c8aa;
+    }
+    
+    .feature.active .feature-label {
+      color: #00c8aa;
+    }
+    
+    .footer {
+      padding: 15px 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.05);
+      text-align: center;
+    }
+    
+    .footer-link {
+      color: #506070;
+      text-decoration: none;
+      font-size: 11px;
+    }
+    
+    .footer-link:hover {
+      color: #00c8aa;
+    }
+    
+    .ip-info {
+      background: rgba(255, 255, 255, 0.03);
+      border-radius: 6px;
+      padding: 12px;
+      margin-bottom: 15px;
+      text-align: center;
+    }
+    
+    .ip-label {
+      font-size: 10px;
+      color: #607080;
+      margin-bottom: 4px;
+    }
+    
+    .ip-address {
+      font-size: 14px;
+      color: #00c8aa;
+      font-weight: 600;
+    }
+    
+    .ip-location {
+      font-size: 11px;
+      color: #8090a0;
+      margin-top: 4px;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="logo">🛡️</div>
+    <div class="title">SPECTEROS VPN</div>
+    <div class="status" id="status">Disconnected</div>
+  </div>
+  
+  <div class="content">
+    <button class="power-button" id="powerBtn" title="Toggle VPN">
+      ⏻
+    </button>
+    
+    <div class="ip-info" id="ipInfo" style="display: none;">
+      <div class="ip-label">Your IP</div>
+      <div class="ip-address" id="ipAddress">---.---.---.---</div>
+      <div class="ip-location" id="ipLocation">Connecting...</div>
+    </div>
+    
+    <div class="country-selector">
+      <div class="country-label">Exit Node Country</div>
+      <select class="country-dropdown" id="countrySelect">
+        <option value="auto">🌐 Auto (Fastest)</option>
+        <option value="us">🇺🇸 United States</option>
+        <option value="de">🇩🇪 Germany</option>
+        <option value="fr">🇫🇷 France</option>
+        <option value="nl">🇳🇱 Netherlands</option>
+        <option value="gb">🇬🇧 United Kingdom</option>
+        <option value="ca">🇨🇦 Canada</option>
+        <option value="se">🇸🇪 Sweden</option>
+        <option value="no">🇳🇴 Norway</option>
+        <option value="ch">🇨🇭 Switzerland</option>
+        <option value="fi">🇫🇮 Finland</option>
+        <option value="jp">🇯🇵 Japan</option>
+        <option value="sg">🇸🇬 Singapore</option>
+        <option value="au">🇦🇺 Australia</option>
+      </select>
+    </div>
+    
+    <div class="features">
+      <div class="feature" id="torFeature">
+        <div class="feature-icon">🧅</div>
+        <div class="feature-label">Tor Network</div>
+      </div>
+      <div class="feature" id="dnsFeature">
+        <div class="feature-icon">🔒</div>
+        <div class="feature-label">DNS Leak Protection</div>
+      </div>
+      <div class="feature" id="killFeature">
+        <div class="feature-icon">🔪</div>
+        <div class="feature-label">Kill Switch</div>
+      </div>
+      <div class="feature" id="encryptFeature">
+        <div class="feature-icon">🔐</div>
+        <div class="feature-label">Encrypted</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="footer">
+    <a href="#" class="footer-link" id="settingsLink">⚙️ Settings</a>
+  </div>
+  
+  <script src="popup.js"></script>
+</body>
+</html>
