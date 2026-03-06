@@ -119,10 +119,12 @@ chroot "$ROOTFS" apt-get install -y \
     vim \
     htop \
     isolinux \
+    syslinux \
     syslinux-efi \
     grub-pc-bin \
     grub-efi-amd64-bin \
     mtools \
+    dosfstools \
     2>&1 | tee /tmp/apt-install.log
 
 # Install LibreOffice separately with --force-bad-versions
@@ -280,8 +282,30 @@ mksquashfs "$ROOTFS" "$ISO_ROOT/live/filesystem.squashfs" -comp xz -b 1024k
 log_step "Building ISO image..."
 mkdir -p "$PROJECT_ROOT/output"
 
-# Copy ISOLINUX bootloader
+# Copy ISOLINUX bootloader and create boot directory
 cp "$ROOTFS/usr/lib/ISOLINUX/isohdpfx.bin" "$ISO_ROOT/"
+cp "$ROOTFS/usr/lib/ISOLINUX/isolinux.bin" "$ISO_ROOT/isolinux/"
+cp "$ROOTFS/usr/lib/ISOLINUX/ldlinux.c32" "$ISO_ROOT/isolinux/"
+cp "$ROOTFS/usr/lib/syslinux/modules/bios/menu.c32" "$ISO_ROOT/isolinux/"
+cp "$ROOTFS/usr/lib/syslinux/modules/bios/chain.c32" "$ISO_ROOT/isolinux/"
+
+# Create isolinux config directory
+mkdir -p "$ISO_ROOT/isolinux"
+cat > "$ISO_ROOT/isolinux/isolinux.cfg" << 'EOF'
+UI menu.c32
+PROMPT 0
+TIMEOUT 50
+LABEL specteros-live
+  MENU LABEL SpecterOS (Live)
+  LINUX /live/vmlinuz
+  INITRD /live/initrd.img
+  APPEND boot=live quiet splash
+LABEL specteros-failsafe
+  MENU LABEL SpecterOS (Failsafe)
+  LINUX /live/vmlinuz
+  INITRD /live/initrd.img
+  APPEND boot=live quiet failsafe
+EOF
 
 xorriso -as mkisofs \
     -iso-level 3 \
@@ -290,10 +314,14 @@ xorriso -as mkisofs \
     -l \
     -D \
     -N \
+    -V "SPECTEROS" \
+    -b isolinux/isolinux.bin \
+    -c isolinux/boot.cat \
     -no-emul-boot \
     -boot-load-size 4 \
     -boot-info-table \
     -eltorito-alt-boot \
+    -e EFI/efi.img \
     -no-emul-boot \
     -isohybrid-mbr "$ISO_ROOT/isohdpfx.bin" \
     -o "$PROJECT_ROOT/output/specteros-os-debian-$(date +%Y%m%d).iso" \
