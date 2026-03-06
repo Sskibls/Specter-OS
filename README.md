@@ -1,12 +1,24 @@
 # 👻 SpecterOS - Privacy-First Linux Distribution
 
+<div align="center">
+
+[![Website](https://img.shields.io/badge/Website-specter--os.web.app-blue?style=for-the-badge)](https://specter-os.web.app)
+[![Version](https://img.shields.io/badge/Version-0.2.0-green?style=for-the-badge)](https://github.com/Sskibls/Specter-OS/releases)
+[![License](https://img.shields.io/badge/License-Apache%202.0-red?style=for-the-badge)](LICENSE)
+
+**🌐 Official Website: [https://specter-os.web.app](https://specter-os.web.app)**
+
+</div>
+
+---
+
 **A secure, privacy-focused Debian-based Linux operating system**
 
 ---
 
 ## 🎯 Project Overview
 
-SpecterOS is a **real, bootable Linux distribution** based on Debian 12 (Bookworm) with:
+SpecterOS is a **real, bootable Linux distribution** based on Debian 13 (Trixie) with:
 
 - ✅ **XFCE Desktop Environment** - Lightweight, fast, customizable
 - ✅ **Persona Shards** - Isolated environments for different identities
