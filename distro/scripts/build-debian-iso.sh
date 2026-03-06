@@ -97,11 +97,15 @@ fi
 # Install desktop environment (XFCE - lightweight)
 log_step "Installing XFCE desktop environment..."
 chroot "$ROOTFS" apt-get update
+
+# Fix broken packages first
+chroot "$ROOTFS" apt-get install -f -y 2>/dev/null || true
+
+# Install desktop without LibreOffice (Java conflicts)
 chroot "$ROOTFS" apt-get install -y \
     task-xfce-desktop \
     lightdm \
     firefox-esr \
-    libreoffice \
     terminator \
     thunar \
     mousepad \
@@ -115,6 +119,9 @@ chroot "$ROOTFS" apt-get install -y \
     vim \
     htop \
     2>&1 | tee /tmp/apt-install.log
+
+# Install LibreOffice separately with --force-bad-versions
+chroot "$ROOTFS" apt-get install -y --fix-broken libreoffice-core libreoffice-common 2>&1 | tee -a /tmp/apt-install.log || log_warning "LibreOffice installation skipped due to dependencies"
 
 log_success "Desktop environment installed"
 
