@@ -1,0 +1,180 @@
+#!/bin/bash
+# SpecterOS Custom XFCE Theme & Configuration
+
+set -e
+
+# Create SpecterOS theme directory
+mkdir -p /usr/share/themes/SpecterOS/gtk-3.0
+mkdir -p /usr/share/themes/SpecterOS/xfce-4.0
+mkdir -p /usr/share/icons/SpecterOS-Cursor
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
+
+# GTK Theme
+cat > /usr/share/themes/SpecterOS/gtk-3.0/gtk.css << 'CSS'
+@define-color bg_color #0a0a0f;
+@define-color fg_color #ffffff;
+@define-color accent_color #00d4aa;
+@define-color accent_hover #00ffcc;
+@define-color card_bg rgba(255, 255, 255, 0.05);
+@define-color border_color rgba(0, 212, 170, 0.3);
+
+* {
+    font-family: 'Rajdhani', 'Segoe UI', sans-serif;
+}
+
+window {
+    background-color: @bg_color;
+    color: @fg_color;
+}
+
+headerbar {
+    background: linear-gradient(135deg, #1a1a2e 0%, #0a0a0f 100%);
+    border-bottom: 2px solid @accent_color;
+    box-shadow: 0 2px 10px rgba(0, 212, 170, 0.2);
+}
+
+button {
+    background: linear-gradient(135deg, @accent_color 0%, #00aa88 100%);
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 20px;
+    font-weight: 600;
+}
+
+button:hover {
+    background: linear-gradient(135deg, @accent_hover 0%, #00ccaa 100%);
+}
+
+button.suggested-action {
+    background: linear-gradient(135deg, @accent_color 0%, #00aa88 100%);
+}
+
+button.destructive-action {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+}
+
+entry, textview {
+    background: @card_bg;
+    border: 1px solid @border_color;
+    border-radius: 8px;
+    color: @fg_color;
+}
+
+menu, .menu {
+    background: #1a1a2e;
+    border: 1px solid @border_color;
+}
+
+menuitem:hover {
+    background: @accent_color;
+    color: #000000;
+}
+
+tooltip {
+    background: #0a0a0f;
+    border: 1px solid @accent_color;
+}
+
+scrollbar {
+    background: @bg_color;
+}
+
+scrollbar slider {
+    background: @accent_color;
+    border-radius: 4px;
+}
+
+progressbar trough {
+    background: @card_bg;
+    border-radius: 4px;
+}
+
+progressbar progress {
+    background: linear-gradient(90deg, @accent_color, @accent_hover);
+    border-radius: 4px;
+}
+CSS
+
+# XFCE Panel Configuration
+cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-panel.xml << 'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfce4-panel" version="1.0">
+  <property name="configver" type="int" value="2"/>
+  <property name="panels" type="array">
+    <value type="int" value="1"/>
+  </property>
+  <property name="panel-1" type="empty">
+    <property name="position" type="string" value="p=6;x=0;y=0"/>
+    <property name="length" type="uint" value="100"/>
+    <property name="position-locked" type="bool" value="true"/>
+    <property name="size" type="uint" value="30"/>
+    <property name="background-style" type="uint" value="1"/>
+    <property name="background-rgba" type="array">
+      <value type="double" value="0.04"/>
+      <value type="double" value="0.04"/>
+      <value type="double" value="0.06"/>
+      <value type="double" value="0.95"/>
+    </property>
+    <property name="plugin-ids" type="array">
+      <value type="int" value="1"/>
+      <value type="int" value="2"/>
+      <value type="int" value="3"/>
+      <value type="int" value="4"/>
+      <value type="int" value="5"/>
+      <value type="int" value="6"/>
+    </property>
+  </property>
+  <property name="plugins" type="empty">
+    <property name="plugin-1" type="string" value="whiskermenu">
+      <property name="button-icon" type="string" value="specteros-logo"/>
+    </property>
+    <property name="plugin-2" type="string" value="separator"/>
+    <property name="plugin-3" type="string" value="tasklist"/>
+    <property name="plugin-4" type="string" value="separator"/>
+    <property name="plugin-5" type="string" value="systray"/>
+    <property name="plugin-6" type="string" value="clock"/>
+  </property>
+</channel>
+XML
+
+# Desktop Settings
+cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-desktop.xml << 'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfce4-desktop" version="1.0">
+  <property name="desktop-icons" type="empty">
+    <property name="style" type="int" value="0"/>
+    <property name="file-icons" type="empty">
+      <property name="show-home" type="bool" value="false"/>
+      <property name="show-filesystem" type="bool" value="false"/>
+      <property name="show-trash" type="bool" value="false"/>
+    </property>
+  </property>
+</channel>
+XML
+
+# Create SpecterOS logo
+cat > /usr/share/pixmaps/specteros-logo.svg << 'SVG'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <defs>
+    <linearGradient id="ghost-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#00d4aa"/>
+      <stop offset="100%" style="stop-color:#00aa88"/>
+    </linearGradient>
+  </defs>
+  <circle cx="50" cy="50" r="48" fill="#0a0a0f" stroke="url(#ghost-grad)" stroke-width="3"/>
+  <path d="M50 15 C30 15 20 35 20 55 C20 75 30 85 35 85 L35 70 L45 70 L45 85 L55 85 L55 60 L65 60 L65 85 L75 85 L75 70 L80 70 C85 70 80 55 80 55 C80 35 70 15 50 15 Z" fill="url(#ghost-grad)"/>
+  <circle cx="40" cy="45" r="5" fill="#0a0a0f"/>
+  <circle cx="60" cy="45" r="5" fill="#0a0a0f"/>
+</svg>
+SVG
+
+# Create welcome script
+cat > /usr/bin/specteros-welcome << 'SCRIPT'
+#!/bin/bash
+python3 /opt/specteros/welcome/welcome.py
+SCRIPT
+
+chmod +x /usr/bin/specteros-welcome
+
+echo "SpecterOS XFCE Theme installed!"

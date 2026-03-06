@@ -1,0 +1,141 @@
+#!/bin/bash
+# Calamares Installer Configuration for SpecterOS
+
+set -e
+
+# Create Calamares configuration directories
+mkdir -p /etc/calamares/branding/specteros
+mkdir -p /etc/calamares/modules
+
+# Download SpecterOS logo for Calamares
+cat > /etc/calamares/branding/specteros/logo.svg << 'SVG'
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 60">
+  <text x="10" y="45" font-family="Arial" font-size="40" font-weight="bold" fill="#00d4aa">SPECTER</text>
+  <text x="175" y="45" font-family="Arial" font-size="40" font-weight="bold" fill="#ffffff">OS</text>
+  <text x="10" y="55" font-family="Arial" font-size="12" fill="#888888">Your Privacy. Our Mission.</text>
+</svg>
+SVG
+
+# Calamares branding
+cat > /etc/calamares/branding/specteros/branding.desc << 'EOF'
+style:
+    sidebarBackground: #0a0a0f
+    sidebarText: #00d4aa
+    sidebarTextSelect: #000000
+    mainBackground: #1a1a2e
+    mainText: #ffffff
+    mainBackgroundSelect: #00d4aa
+    mainTextSelect: #000000
+    
+    progressBarBase: #333344
+    progressBarCompleted: #00d4aa
+    
+    panelBackground: #0a0a0f
+    panelText: #ffffff
+    
+    font: Rajdhani, 12
+    
+    images:
+        - logo.svg
+        - welcome.png
+        - requirements.png
+        - partition.png
+        - users.png
+        - summary.png
+        
+    slideshow:
+        interval: 5000
+        transition: fade
+        slides:
+            - image: welcome.png
+              caption: "Welcome to SpecterOS"
+              description: "Privacy-first Debian-based Linux distribution"
+            - image: requirements.png
+              caption: "System Requirements"
+              description: "2GB RAM, 20GB storage, 64-bit processor"
+            - image: partition.png
+              caption: "Disk Partitioning"
+              description: "Choose your installation method"
+            - image: users.png
+              caption: "User Setup"
+              description: "Create your user account"
+            - image: summary.png
+              caption: "Ready to Install"
+              description: "Review your settings"
+EOF
+
+# Main Calamares config
+cat > /etc/calamares/settings.conf << 'EOF'
+# Calamares Settings for SpecterOS
+debug: false
+show_debug: false
+qtQuick: false
+
+modules:
+    - show
+    - welcome
+    - requirements
+    - partition
+    - users
+    - summary
+    - finished
+
+welcome:
+    configurationContent:
+        visible: true
+    languages:
+        - en
+        - es
+        - fr
+        - de
+        - pt_BR
+
+requirements:
+    requiredStorageGiB: 20
+    requiredRamGiB: 2
+    checkPower: false
+    checkRoot: true
+
+partition:
+    defaultPartitionTableType: gpt
+    efiSystemPartition: "/boot/efi"
+    userSwapChoices:
+        - reuse
+        - file
+    
+users:
+    setRootPassword: true
+    setHostname: true
+    setAutoLogin: false
+    defaultGroups:
+        - sudo
+        - audio
+        - video
+        - plugdev
+        - netdev
+
+finished:
+    restartNowEnabled: true
+    restartNowCommand: "systemctl reboot"
+    shutdownNowCommand: "systemctl poweroff"
+EOF
+
+# Create welcome slide images (simple SVG placeholders)
+cat > /etc/calamares/branding/specteros/welcome.png << 'EOF'
+# This would be a real PNG in production
+# For now, Calamares will use the logo
+EOF
+
+# Desktop entry for Calamares
+cat > /usr/share/applications/calamares.desktop << 'EOF'
+[Desktop Entry]
+Name=Install SpecterOS
+Comment=Install SpecterOS to your hard drive
+Exec=calamares
+Icon=system-installer
+Terminal=false
+Type=Application
+Categories=System;
+EOF
+
+echo "Calamares Installer configured for SpecterOS!"

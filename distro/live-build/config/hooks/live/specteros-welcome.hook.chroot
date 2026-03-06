@@ -1,0 +1,255 @@
+#!/bin/bash
+# SpecterOS Welcome Screen & Launcher
+
+set -e
+
+# Create SpecterOS Welcome application
+mkdir -p /opt/specteros/welcome
+mkdir -p /usr/share/applications
+mkdir -p /usr/share/pixmaps
+
+# Create the welcome application
+cat > /opt/specteros/welcome/welcome.py << 'PYTHON'
+#!/usr/bin/env python3
+"""SpecterOS Welcome Screen & Launcher"""
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk, GLib, Pango
+import subprocess
+import os
+
+CSS = """
+window {
+    background: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #0f0f1a 100%);
+}
+.container {
+    margin: 40px;
+}
+.title {
+    font-size: 48px;
+    font-weight: 700;
+    color: #00d4aa;
+    margin-bottom: 10px;
+}
+.subtitle {
+    font-size: 18px;
+    color: #8888aa;
+    margin-bottom: 40px;
+}
+.card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 15px;
+    border: 1px solid rgba(0, 212, 170, 0.2);
+}
+.card:hover {
+    background: rgba(0, 212, 170, 0.1);
+    border-color: #00d4aa;
+}
+.card-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #ffffff;
+    margin-bottom: 8px;
+}
+.card-desc {
+    font-size: 14px;
+    color: #8888aa;
+}
+.btn {
+    background: linear-gradient(135deg, #00d4aa 0%, #00aa88 100%);
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    padding: 12px 30px;
+    font-size: 16px;
+    font-weight: 600;
+    margin: 5px;
+}
+.btn:hover {
+    background: linear-gradient(135deg, #00ffcc 0%, #00ccaa 100%);
+}
+.btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+}
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+.btn-danger {
+    background: linear-gradient(135deg, #ff4444 0%, #cc0000 100%);
+}
+.btn-danger:hover {
+    background: linear-gradient(135deg, #ff6666 0%, #ee0000 100%);
+}
+.status-badge {
+    background: rgba(0, 212, 170, 0.2);
+    color: #00d4aa;
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 14px;
+    font-weight: 600;
+}
+"""
+
+class SpecterOSWelcome(Gtk.Window):
+    def __init__(self):
+        super().__init__(title="SpecterOS Welcome")
+        self.set_default_size(900, 700)
+        self.set_position(Gtk.WindowPosition.CENTER)
+        
+        # Apply CSS
+        css_provider = Gtk.CssProvider()
+        css_provider.load_from_data(CSS.encode())
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            css_provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+        
+        # Main container
+        container = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        container.get_style_context().add_class("container")
+        self.add(container)
+        
+        # Header
+        header = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        container.pack_start(header, False, False, 0)
+        
+        # Badge
+        badge = Gtk.Label(label="👻 v0.2.0")
+        badge.get_style_context().add_class("status-badge")
+        badge.set_halign(Gtk.Align.START)
+        header.pack_start(badge, False, False, 0)
+        
+        # Title
+        title = Gtk.Label(label="SPECTEROS")
+        title.get_style_context().add_class("title")
+        title.set_halign(Gtk.Align.START)
+        header.pack_start(title, False, False, 10)
+        
+        # Subtitle
+        subtitle = Gtk.Label(label="Your Privacy. Our Mission.")
+        subtitle.get_style_context().add_class("subtitle")
+        subtitle.set_halign(Gtk.Align.START)
+        header.pack_start(subtitle, False, False, 0)
+        
+        # Quick Actions
+        actions_label = Gtk.Label(label="⚡ Quick Actions")
+        actions_label.set_halign(Gtk.Align.START)
+        actions_label.get_style_context().add_class("card-title")
+        container.pack_start(actions_label, False, False, 20)
+        
+        # Action cards
+        actions = [
+            ("🔒 Privacy Settings", "Configure privacy & security options", self.on_privacy),
+            ("🌐 Network", "Manage network & kill switch", self.on_network),
+            ("👤 Persona Shards", "Manage isolated environments", self.on_shards),
+            ("🛡️ Security Tools", "Access security & pentesting tools", self.on_security),
+            ("📦 Install SpecterOS", "Install to hard drive", self.on_install),
+        ]
+        
+        for title, desc, callback in actions:
+            card = Gtk.EventBox()
+            card_box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL, spacing=20)
+            card_box.set_margin_start(20)
+            card_box.set_margin_end(20)
+            card_box.set_margin_top(15)
+            card_box.set_margin_bottom(15)
+            
+            card_title = Gtk.Label(label=title)
+            card_title.get_style_context().add_class("card-title")
+            card_title.set_halign(Gtk.Align.START)
+            card_box.pack_start(card_title, False, False, 0)
+            
+            card_desc = Gtk.Label(label=desc)
+            card_desc.get_style_context().add_class("card-desc")
+            card_desc.set_halign(Gtk.Align.START)
+            card_box.pack_start(card_desc, False, False, 0)
+            
+            card.add(card_box)
+            card.connect("button-press-event", lambda w, e: callback())
+            card.get_style_context().add_class("card")
+            
+            container.pack_start(card, False, False, 0)
+        
+        # Footer buttons
+        footer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        footer.set_margin_top(30)
+        container.pack_start(footer, False, False, 0)
+        
+        btn_terminal = Gtk.Button(label="🖥️ Terminal")
+        btn_terminal.get_style_context().add_class("btn")
+        btn_terminal.connect("clicked", lambda w: self.open_terminal())
+        footer.pack_start(btn_terminal, False, False, 0)
+        
+        btn_filemanager = Gtk.Button(label="📁 Files")
+        btn_filemanager.get_style_context().add_class("btn")
+        btn_filemanager.connect("clicked", lambda w: self.open_files())
+        footer.pack_start(btn_filemanager, False, False, 0)
+        
+        btn_settings = Gtk.Button(label="⚙️ Settings")
+        btn_settings.get_style_context().add_class("btn btn-secondary")
+        btn_settings.connect("clicked", lambda w: self.open_settings())
+        footer.pack_start(btn_settings, False, False, 0)
+        
+        # Don't show on first boot option
+        self.skip_check = Gtk.CheckButton(label="Don't show on startup")
+        container.pack_start(self.skip_check, False, False, 20)
+        
+        self.show_all()
+    
+    def on_privacy(self, w=None):
+        subprocess.Popen(["xfce4-settings-manager"])
+    
+    def on_network(self, w=None):
+        subprocess.Popen(["nm-connection-editor"])
+    
+    def on_shards(self, w=None):
+        subprocess.Popen(["specteros-tui"])
+    
+    def on_security(self, w=None):
+        subprocess.Popen(["terminator"])
+    
+    def on_install(self, w=None):
+        subprocess.Popen(["calamares"])
+    
+    def open_terminal(self, w=None):
+        subprocess.Popen(["terminator"])
+    
+    def open_files(self, w=None):
+        subprocess.Popen(["thunar"])
+    
+    def open_settings(self, w=None):
+        subprocess.Popen(["xfce4-settings-manager"])
+    
+    def on_destroy(self, widget):
+        Gtk.main_quit()
+
+if __name__ == "__main__":
+    win = SpecterOSWelcome()
+    win.connect("destroy", win.on_destroy)
+    Gtk.main()
+PYTHON
+
+chmod +x /opt/specteros/welcome/welcome.py
+
+# Create desktop entry
+cat > /usr/share/applications/specteros-welcome.desktop << 'EOF'
+[Desktop Entry]
+Name=SpecterOS Welcome
+Comment=Welcome to SpecterOS
+Exec=/opt/specteros/welcome/welcome.py
+Icon=preferences-desktop-theme
+Terminal=false
+Type=Application
+Categories=System;
+EOF
+
+# Create autostart
+mkdir -p /etc/xdg/autostart
+cp /usr/share/applications/specteros-welcome.desktop /etc/xdg/autostart/
+
+echo "SpecterOS Welcome Screen installed!"

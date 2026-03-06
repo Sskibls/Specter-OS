@@ -51,8 +51,12 @@ fi
 echo "[PACKAGES] Creating package list..."
 mkdir -p config/package-lists
 cat > config/package-lists/specteros.list.chroot << 'EOF'
+# XFCE Desktop
 task-xfce-desktop
 lightdm
+lightdm-gtk-greeter
+
+# Applications
 firefox-esr
 terminator
 thunar
@@ -60,12 +64,33 @@ mousepad
 pavucontrol
 network-manager
 network-manager-gnome
+
+# Utilities
 sudo
 curl
 wget
 git
 vim
 htop
+python3
+python3-gi
+python3-gi-cairo
+
+# Firmware
+firmware-linux
+firmware-linux-nonfree
+firmware-iwlwifi
+
+# Calamares Installer
+calamares
+calamares-settings-debian
+grub-pc
+grub-efi-amd64
+partition-manager
+
+# Extra UI components
+whiskermenu
+gir1.2-appindicator3-0.1
 EOF
 
 # Copy SpecterOS binaries for the hook

@@ -1,0 +1,186 @@
+#!/bin/bash
+# SpecterOS Panel & Launcher Configuration
+
+set -e
+
+# Install Whisker Menu (better application launcher)
+apt-get update
+apt-get install -y whiskermenu
+
+# Create custom panel layout
+mkdir -p /etc/skel/.config/xfce4/panel/
+
+# Create SpecterOS Quick Launch script
+cat > /usr/bin/specteros-launcher << 'SCRIPT'
+#!/bin/bash
+# SpecterOS Application Launcher
+
+case "$1" in
+    "privacy")
+        xfce4-settings-manager &
+        ;;
+    "network")
+        nm-connection-editor &
+        ;;
+    "terminal")
+        terminator &
+        ;;
+    "files")
+        thunar &
+        ;;
+    "browser")
+        firefox-esr &
+        ;;
+    "shards")
+        specteros-tui &
+        ;;
+    "killswitch")
+        # Toggle network kill switch
+        notify-send "🔒 Kill Switch" "Network disabled" -i network-offline
+        nmcli networking off
+        ;;
+    "panic")
+        # Emergency panic mode
+        notify-send "⚠️ PANIC MODE" "All network connections disabled" -i dialog-warning
+        nmcli networking off
+        # Lock screen
+        xfce4-screensaver-command -l
+        ;;
+    *)
+        # Show main launcher
+        xfce4-popup-whiskermenu &
+        ;;
+esac
+SCRIPT
+
+chmod +x /usr/bin/specteros-launcher
+
+# Create system tray applet for SpecterOS status
+cat > /opt/specteros/panel/status-tray.py << 'PYTHON'
+#!/usr/bin/env python3
+"""SpecterOS System Tray Status Indicator"""
+
+import gi
+gi.require_version('Gtk', '3.0')
+gi.require_version('AppIndicator3', '0.1')
+from gi.repository import Gtk, AppIndicator3, GLib
+import subprocess
+import os
+
+class SpecterOSTray:
+    def __init__(self):
+        self.indicator = AppIndicator3.Indicator.new(
+            "specteros-tray",
+            "network-workgroup",
+            AppIndicator3.IndicatorCategory.SYSTEM_SERVICES
+        )
+        self.indicator.set_status(AppIndicator3.IndicatorStatus.ACTIVE)
+        self.indicator.set_title("SpecterOS")
+        self.build_menu()
+        
+    def build_menu(self):
+        menu = Gtk.Menu()
+        
+        # Status item
+        status_item = Gtk.MenuItem(label="🔒 SpecterOS Active")
+        status_item.set_sensitive(False)
+        menu.append(status_item)
+        
+        menu.append(Gtk.SeparatorMenuItem())
+        
+        # Quick actions
+        actions = [
+            ("🌐 Network Settings", self.on_network),
+            ("🔒 Kill Switch", self.on_killswitch),
+            ("⚠️ PANIC Mode", self.on_panic),
+            ("👤 Shard Manager", self.on_shards),
+        ]
+        
+        for label, callback in actions:
+            item = Gtk.MenuItem(label=label)
+            item.connect("activate", callback)
+            menu.append(item)
+        
+        menu.append(Gtk.SeparatorMenuItem())
+        
+        # Exit
+        quit_item = Gtk.MenuItem(label="Hide Indicator")
+        quit_item.connect("activate", self.on_hide)
+        menu.append(quit_item)
+        
+        menu.show_all()
+        self.indicator.set_menu(menu)
+    
+    def on_network(self, widget):
+        subprocess.Popen(["nm-connection-editor"])
+    
+    def on_killswitch(self, widget):
+        subprocess.Popen(["nmcli", "networking", "off"])
+    
+    def on_panic(self, widget):
+        subprocess.Popen(["nmcli", "networking", "off"])
+        subprocess.Popen(["xfce4-screensaver-command", "-l"])
+    
+    def on_shards(self, widget):
+        subprocess.Popen(["specteros-tui"])
+    
+    def on_hide(self, widget):
+        self.indicator.set_status(AppIndicator3.IndicatorStatus.PASSIVE)
+
+if __name__ == "__main__":
+    tray = SpecterOSTray()
+    Gtk.main()
+PYTHON
+
+chmod +x /opt/specteros/panel/status-tray.py
+
+# Autostart tray
+cat > /etc/xdg/autostart/specteros-tray.desktop << 'EOF'
+[Desktop Entry]
+Name=SpecterOS Tray
+Comment=SpecterOS System Tray Indicator
+Exec=/opt/specteros/panel/status-tray.py
+Icon=network-workgroup
+Terminal=false
+Type=Application
+Categories=System;
+X-GNOME-Autostart-enabled=true
+EOF
+
+# Create keyboard shortcuts
+mkdir -p /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/
+
+cat > /etc/skel/.config/xfce4/xfconf/xfce-perchannel-xml/xfce4-keyboard-shortcuts.xml << 'XML'
+<?xml version="1.0" encoding="UTF-8"?>
+<channel name="xfce4-keyboard-shortcuts" version="1.0">
+  <property name="commands" type="empty">
+    <property name="default" type="empty">
+      <property name="&lt;Alt&gt;F1" type="empty"/>
+      <property name="&lt;Alt&gt;F2" type="empty">
+        <property name="startup-notify" type="empty"/>
+      </property>
+      <property name="&lt;Alt&gt;F3" type="empty">
+        <property name="startup-notify" type="empty"/>
+      </property>
+    </property>
+    <property name="custom" type="empty">
+      <property name="&lt;Alt&gt;F1" type="string" value="specteros-launcher"/>
+      <property name="&lt;Alt&gt;F2" type="string" value="xfce4-appfinder">
+        <property name="startup-notify" type="bool" value="true"/>
+      </property>
+      <property name="&lt;Alt&gt;F3" type="string" value="terminator">
+        <property name="startup-notify" type="bool" value="true"/>
+      </property>
+      <property name="&lt;Super&gt;t" type="string" value="terminator"/>
+      <property name="&lt;Super&gt;f" type="string" value="thunar"/>
+      <property name="&lt;Super&gt;b" type="string" value="firefox-esr"/>
+      <property name="&lt;Super&gt;l" type="string" value="xfce4-screensaver-command -l"/>
+      <property name="&lt;Control&gt;&lt;Alt&gt;k" type="string" value="specteros-launcher killswitch"/>
+      <property name="&lt;Control&gt;&lt;Alt&gt;p" type="string" value="specteros-launcher panic"/>
+      <property name="override" type="bool" value="true"/>
+    </property>
+  </property>
+</channel>
+XML
+
+echo "SpecterOS Panel & Launcher configured!"
