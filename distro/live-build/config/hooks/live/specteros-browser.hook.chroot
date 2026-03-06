@@ -5,7 +5,7 @@
 set -e
 
 # ============================================
-# 1. INSTALL FIREFOX + HARDENING TOOLS
+# 1. INSTALL FIREFOX + AD BLOCKERS
 # ============================================
 
 apt-get update
@@ -13,10 +13,24 @@ apt-get install -y \
     firefox-esr \
     tor \
     torbrowser-launcher \
-    webext-ublock-origin \
-    webext-https-everywhere \
-    webext-privacy-badger \
     || true
+
+# Download and install uBlock Origin (same engine as Brave Shields)
+mkdir -p /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}
+cd /tmp
+curl -L -o ubo.xpi "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi"
+unzip -o ubo.xpi -d /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/
+rm ubo.xpi
+
+# Download Privacy Badger
+curl -L -o pb.xpi "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger17/latest.xpi"
+unzip -o pb.xpi -d /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/privacy-badger@eff.org/
+rm pb.xpi
+
+# Download HTTPS Everywhere
+curl -L -o https-everywhere.xpi "https://addons.mozilla.org/firefox/downloads/latest/https-everywhere/latest.xpi"
+unzip -o https-everywhere.xpi -d /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/https-everywhere@eff.org/
+rm https-everywhere.xpi
 
 # ============================================
 # 2. CREATE HARDENED FIREFOX PROFILE
@@ -218,20 +232,61 @@ user_pref("extensions.formautofill.addresses.enabled", false);
 user_pref("extensions.formautofill.creditCards.enabled", false);
 
 // ============================================
-// EXTENSIONS
+// UBLOCK ORIGIN (Brave Shields equivalent)
 // ============================================
 
-// Disable extension updates (manual control)
-user_pref("extensions.update.enabled", false);
-user_pref("extensions.update.autoUpdateDefault", false);
+// Enable uBlock Origin
+user_pref("extensions.ublock0.enabled", true);
 
-// Require signature for extensions
-user_pref("xpinstall.signatures.required", true);
+// uBlock Origin settings - Brave Shields style
+user_pref("extensions.ublock0.userSettings.largeMediaSize", 50);
+user_pref("extensions.ublock0.userSettings.advancedUserEnabled", true);
 
-// Disable extension recommendations
-user_pref("extensions.getAddons.showPane", false);
-user_pref("extensions.htmlaboutaddons.recommendations.enabled", false);
-user_pref("extensions.discovery.enabled", false);
+// Default filter lists (Brave-style blocking)
+user_pref("extensions.ublock0.selectedFilterLists", [
+    "ublock-filters",
+    "ublock-badware",
+    "ublock-privacy",
+    "ublock-unbreak",
+    "easylist",
+    "easyprivacy",
+    "adguard-base",
+    "adguard-mobile",
+    "fanboy-thirdparty_fonts",
+    "plowe-0"
+]);
+
+// Enable cosmetic filtering
+user_pref("extensions.ublock0.userSettings.cosmeticFilteringEnabled", true);
+
+// Enable JavaScript blocking by default (optional)
+// user_pref("extensions.ublock0.userSettings.noScripting", true);
+
+// Block large media elements
+user_pref("extensions.ublock0.userSettings.blockLargeMedia", true);
+
+// Disable acceptable ads (Brave doesn't allow acceptable ads)
+user_pref("extensions.ublock0.userSettings.acceptableAds", false);
+
+// ============================================
+// AGGRESSIVE AD BLOCKING (Brave-style)
+// ============================================
+
+// Block all third-party requests by default
+user_pref("network.cookie.cookieBehavior", 1);
+
+// Block tracking parameters in URLs
+user_pref("privacy.query_stripping.enabled", true);
+user_pref("privacy.query_stripping.strip_list", "fbclid,gclid,utm_source,utm_medium,utm_campaign,utm_content,utm_term");
+
+// Block cryptocurrency miners
+user_pref("privacy.trackingprotection.crypto_mining.enabled", true);
+
+// Block fingerprinting scripts
+user_pref("privacy.trackingprotection.fingerprinting.enabled", true);
+
+// Block social media trackers
+user_pref("privacy.trackingprotection.socialtracking.enabled", true);
 
 // ============================================
 // UI & BEHAVIOR
@@ -402,6 +457,8 @@ cat > /usr/share/specteros/browser/start.html << 'HTML'
         <p class="status">Hardened Firefox ESR • Maximum Privacy</p>
         
         <div class="badges">
+            <span class="security-badge">🛡️ uBlock Origin</span>
+            <span class="security-badge">🚫 No Ads</span>
             <span class="security-badge">🔒 No Telemetry</span>
             <span class="security-badge">🚫 No WebRTC</span>
             <span class="security-badge">🎭 Anti-Fingerprinting</span>
@@ -525,20 +582,157 @@ chmod +x /opt/specteros/browser/first-run.sh
 cat > /usr/share/applications/specteros-browser.desktop << 'EOF'
 [Desktop Entry]
 Name=SpecterOS Browser
-Comment=Hardened Firefox ESR with maximum privacy
+Comment=Hardened Firefox ESR with maximum privacy + Brave-style ad blocking
 Exec=/opt/specteros/browser/first-run.sh
 Icon=firefox-esr
 Terminal=false
 Type=Application
 Categories=Network;WebBrowser;
-Keywords=privacy;security;browser;web;
+Keywords=privacy;security;browser;web;adblock;
 EOF
 
+# ============================================
+# 8. CREATE SHIELD CONTROLLER (Brave Shields clone)
+# ============================================
+
+cat > /opt/specteros/browser/shield-controller.py << 'PYTHON'
+#!/usr/bin/env python3
+"""
+SpecterOS Shield Controller
+Brave Shields-style quick settings for ad blocking
+"""
+
+import gi
+gi.require_version('Gtk', '3.0')
+from gi.repository import Gtk, Gdk
+import subprocess
+
+class ShieldController(Gtk.Window):
+    def __init__(self):
+        super().__init__()
+        
+        self.set_default_size(320, 280)
+        self.set_position(Gtk.WindowPosition.MOUSE)
+        self.set_decorated(False)
+        self.set_app_paintable(True)
+        self.set_skip_taskbar_hint(True)
+        
+        main = Gtk.Box(orientation=Gtk.Orientation.VERTICAL)
+        main.set_margin_start(20)
+        main.set_margin_end(20)
+        main.set_margin_top(20)
+        main.set_margin_bottom(20)
+        self.add(main)
+        
+        # Header
+        header = Gtk.Label(label="🛡️ Shields")
+        header.get_style_context().add_class("header")
+        main.pack_start(header, False, False, 10)
+        
+        # Toggles
+        toggles = [
+            ("🚫 Block Ads", True, "Blocks ads and trackers"),
+            ("🔒 Block Scripts", False, "Block JavaScript (breaks sites)"),
+            ("🎭 Fingerprinting", True, "Block fingerprinting"),
+            ("🍪 Block Cookies", True, "Block third-party cookies"),
+            ("🔐 HTTPS Only", True, "Force HTTPS connections"),
+        ]
+        
+        for label, active, tooltip in toggles:
+            box = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+            box.set_margin_top(5)
+            box.set_margin_bottom(5)
+            
+            lbl = Gtk.Label(label=label)
+            lbl.set_halign(Gtk.Align.START)
+            box.pack_start(lbl, True, True, 0)
+            
+            switch = Gtk.Switch()
+            switch.set_active(active)
+            switch.set_tooltip_text(tooltip)
+            box.pack_start(switch, False, False, 0)
+            
+            main.pack_start(box, False, False, 0)
+        
+        # Footer buttons
+        footer = Gtk.Box(orientation=Gtk.Orientation.HORIZONTAL)
+        footer.set_margin_top(20)
+        
+        btn_advanced = Gtk.Button(label="Advanced")
+        btn_advanced.get_style_context().add_class("btn-secondary")
+        btn_advanced.connect("clicked", self.open_about)
+        footer.pack_start(btn_advanced, True, True, 5)
+        
+        btn_close = Gtk.Button(label="Close")
+        btn_close.get_style_context().add_class("btn-primary")
+        btn_close.connect("clicked", lambda w: self.close())
+        footer.pack_start(btn_close, True, True, 5)
+        
+        main.pack_start(footer, False, False, 0)
+        
+        self.apply_css()
+        self.show_all()
+    
+    def apply_css(self):
+        css = b"""
+        window {
+            background: rgba(15, 15, 22, 0.98);
+            border: 1px solid rgba(0, 200, 170, 0.3);
+            border-radius: 10px;
+        }
+        .header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #00c8aa;
+        }
+        label {
+            color: #c0c0d0;
+            font-size: 14px;
+        }
+        switch {
+            background: #2a2a3a;
+        }
+        switch:checked {
+            background: #00c8aa;
+        }
+        .btn-primary {
+            background: #00c8aa;
+            color: #000000;
+            border: none;
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
+        .btn-secondary {
+            background: transparent;
+            color: #8090a0;
+            border: 1px solid #405060;
+            border-radius: 6px;
+            padding: 8px 16px;
+        }
+        """
+        provider = Gtk.CssProvider()
+        provider.load_from_data(css)
+        Gtk.StyleContext.add_provider_for_screen(
+            Gdk.Screen.get_default(),
+            provider,
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+        )
+    
+    def open_about(self, widget):
+        subprocess.Popen(["about:config"])
+
+if __name__ == "__main__":
+    controller = ShieldController()
+    Gtk.main()
+PYTHON
+
+chmod +x /opt/specteros/browser/shield-controller.py
+
 echo "✓ SpecterOS Browser installed and hardened"
-echo "  - Firefox ESR with maximum privacy"
+echo "  - Firefox ESR with uBlock Origin (Brave-style blocking)"
 echo "  - All telemetry disabled"
 echo "  - Anti-fingerprinting enabled"
 echo "  - Auto-clear cookies on close"
 echo "  - HTTPS-Only mode"
 echo "  - WebRTC disabled"
-echo "  - Custom start page"
+echo "  - Custom start page with shield controller"
