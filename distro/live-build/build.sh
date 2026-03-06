@@ -4,7 +4,7 @@
 set -e
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+PROJECT_ROOT="$(dirname "$(dirname "$SCRIPT_DIR")")"
 BUILD_DIR="$HOME/specteros-live"
 
 echo "╔═══════════════════════════════════════════════════════════╗"
@@ -82,7 +82,7 @@ fi
 # Copy hook
 echo "[HOOKS] Installing SpecterOS hook..."
 mkdir -p config/hooks/live
-cp "$SCRIPT_DIR/live-build/config/hooks/live/specteros.hook.chroot" config/hooks/live/
+cp "$SCRIPT_DIR/config/hooks/live/specteros.hook.chroot" config/hooks/live/
 chmod +x config/hooks/live/specteros.hook.chroot
 
 # Clean previous build (optional - comment out for faster rebuilds)
