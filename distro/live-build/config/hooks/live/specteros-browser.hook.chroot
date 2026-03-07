@@ -15,18 +15,8 @@ apt-get install -y \
     torbrowser-launcher \
     || true
 
-# Download and install uBlock Origin (same engine as Brave Shields)
-mkdir -p /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}
-cd /tmp
-curl -L -o ubo.xpi "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi" 2>/dev/null && unzip -o ubo.xpi -d /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/{d10d0bf8-f5b5-c8b4-a8b2-2b9879e08c5d}/ || true
-rm -f ubo.xpi
-
-# Download Privacy Badger
-curl -L -o pb.xpi "https://addons.mozilla.org/firefox/downloads/latest/privacy-badger/latest.xpi" 2>/dev/null && unzip -o pb.xpi -d /usr/lib/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/privacy-badger@eff.org/ || true
-rm -f pb.xpi
-
-# HTTPS Everywhere is deprecated (built into Firefox now)
-# Firefox has HTTPS-Only Mode enabled by default in our config
+# Extensions will be installed via Firefox config
+# uBlock Origin, Privacy Badger available from about:addons
 
 # ============================================
 # 2. CREATE HARDENED FIREFOX PROFILE
@@ -554,6 +544,8 @@ chmod +x /opt/specteros/browser/profiles.sh
 # ============================================
 # 7. CREATE FIRST-RUN SCRIPT
 # ============================================
+
+mkdir -p /opt/specteros/browser
 
 cat > /opt/specteros/browser/first-run.sh << 'SCRIPT'
 #!/bin/bash
